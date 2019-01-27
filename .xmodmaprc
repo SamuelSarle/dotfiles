@@ -1,9 +1,3 @@
-keysym comma = comma less
-keysym period = period greater
-keysym odiaeresis = semicolon
-keysym adiaeresis = colon
-keysym aring = slash backslash
-
 clear  Lock
 keysym Caps_Lock = Escape
 keysym Escape = Caps_Lock

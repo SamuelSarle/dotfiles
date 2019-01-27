@@ -5,7 +5,6 @@ done &
 xset r rate 300 50
 xset b off
 xrdb .Xresources
-setxkbmap -layout us
-xmodmap .xmodmaprc
+xmodmap ~/.xmodmaprc
 feh --bg-scale ~/Media/photos/wallpaper.jpg
 exec dwm
