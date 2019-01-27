@@ -1,9 +1,10 @@
 . ~/.config/fish/aliases.fish
 
-set -x PATH $PATH
-set -U EDITOR nvim
+set -x PATH ~/.local/bin $PATH
+set -gx EDITOR nvim
 
-set -U FZF_TMUX 1
+set -gx HOME '/usr/home/samuel'
 
-set -U eden_prompt_char '>'
+set -gx fish_greeting ''
 
+set -U FZF_TMUX 0
