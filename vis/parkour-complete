@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for i; do
+	echo "$i"
+done | vis-menu -b
