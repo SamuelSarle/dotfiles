@@ -1,46 +1,56 @@
+#common
+alias   l       'ls -lGF'
+alias   x       'tmux new-session -d -s x "startx" >/dev/null'
+
+#common movements
 alias   ..      'cd ..'
 alias   ...     'cd ../..'
 alias   ....    'cd ../../..'
 alias   1       'cd -'
 alias   2       'cd -2'
 alias   3       'cd -3'
+
+#edit dotfiles
 alias   ea      '$EDITOR ~/dotfiles/fish/aliases.fish'
 alias   ef      '$EDITOR ~/dotfiles/fish/config.fish'
 alias   eg      '$EDITOR ~/.gitconfig'
 alias   et      '$EDITOR ~/dotfiles/.tmux.conf'
 alias   ev      '$EDITOR ~/dotfiles/init.vim'
 alias   ee      '$EDITOR ~/dotfiles/vis/visrc.lua'
-alias   l       'ls -lGF'
 
+#editor
 alias   e       '$EDITOR'
 alias   de      'doas $EDITOR'
 
 alias   vis     '/usr/local/bin/vis'
 
-alias   senv    'source bin/activate.fish'
-
-alias   x       'tmux new-session -d -s x "startx" >/dev/null'
-
+#tmux
 alias   ta      'tmux attach -t'
 alias   ts      'tmux new-session -s'
 alias   tl      'tmux ls'
 alias   tkss    'tmux kill-session -t'
 alias   tksv    'tmux kill-server'
 
+#youtube streaming
 alias   mpva    'mpv --no-video'
 alias   yt      'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias   yta     'yt -x -f bestaudio/best'
 
+#confirm the operations unless -f is specified
 alias   rm      'rm -i'
 alias   cp      'cp -i'
 alias   mv      'mv -i'
 
+#power management
 abbr    reboot   'doas reboot'
 abbr    poweroff 'doas poweroff'
 
+#python
 abbr    py       'python3'
 abbr    ppi      'pip install --user'
+alias   senv     'source bin/activate.fish'
 
+#freebsd jails
 abbr    io       'doas iocage'
 abbr    iol      'iocage list'
 abbr    ioc      'doas iocage console'
@@ -50,6 +60,7 @@ abbr    iora     'doas iocage restart ALL'
 abbr    ioss     'doas iocage stop'
 abbr    iosa     'doas iocage stop ALL'
 
+#virtualization
 abbr    vm       'doas vm'
 abbr    vml      'doas vm list'
 abbr    vmc      'doas vm console'
@@ -57,6 +68,7 @@ abbr    vms      'doas vm start'
 abbr    vmss     'doas vm stop'
 abbr    vmsa     'doas vm stopall'
 
+#git commands
 abbr    g        'git'
 abbr    ga       'git add'
 abbr    g.       'git add .'
@@ -93,7 +105,7 @@ abbr    grb      'git rebase'
 abbr    grbm     'git rebase master'
 abbr    grbd     'git rebase develop'
 abbr    grh      'git reset HEAD'
-abbr    grhh     'git reset head --HARD'
+abbr    grhh     'git reset HEAD --HARD'
 abbr    gs       'git status'
 abbr    gst      'git stash'
 
@@ -106,10 +118,12 @@ function vf
 end
 
 function wiki
+    #Fuzzy find a wiki to edit
     find ~/wiki/ -type f | fzf | xargs -r -I % $EDITOR %
 end
 
 function wikin
+    #Create a new wiki if it doesn't exist already
     if test (count $argv) -gt 0
         if test -e ~/wiki/$argv.md
             echo "That page already exists: $argv"
@@ -122,20 +136,25 @@ function wikin
 end
 
 function wikirm
-    if test (count $argv) -gt 0
-        for page in $argv
-            if test -e ~/wiki/$page.md
-                rm -f ~/wiki/$page.md
-            else
-                echo "That page doesn't exist: $page"
-            end
-        end
-    else
-        echo "Need argument(s) to remove wiki page(s)"
-    end
+    #Fuzzy find for a wiki to remove
+    find ~/wiki/ -type f | fzf | xargs -r -I % rm %
+
+    # Alternatively iterate over a list of wikis to delete
+    # if test (count $argv) -gt 0
+        # for page in $argv
+            # if test -e ~/wiki/$page.md
+                # rm -f ~/wiki/$page.md
+            # else
+                # echo "That page doesn't exist: $page"
+            # end
+        # end
+    # else
+        # echo "Need argument(s) to remove wiki page(s)"
+    # end
 end
 
-function wikire
+function wikimv
+    #Rename a wiki if it exists
     if test (count $argv) -eq 2
         if test -e ~/wiki/$argv[1].md
             mv ~/wiki/$argv[1].md ~/wiki/$argv[2].md
@@ -174,3 +193,5 @@ function fp --description "Search your path"
   end
 end
 
+#abbreviations for some common spelling errors
+abbr    hotp     'htop'
