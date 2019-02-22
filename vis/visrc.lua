@@ -35,14 +35,12 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
     vis:command('set autoindent on')
     vis:command('set theme dark-16')
 
+    -- TODO add shortcut for fzf file opening and line searching
     -- vis:map(vis.modes.NORMAL, "abc", )
-
-    -- TODO add shortcut for fzf file opening
 
     -- TODO remove trailing whitespace before writing to disk
     vis.events.subscribe(vis.events.FILE_SAVE_PRE, function(file, path)
         return true
     end)
-
 end)
 

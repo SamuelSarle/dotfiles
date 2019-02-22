@@ -1,6 +1,7 @@
 #common
 alias   l       'ls -lGF'
 alias   x       'tmux new-session -d -s x "startx" >/dev/null'
+alias   todo    '$EDITOR ~/Documents/todo.txt'
 
 #common movements
 alias   ..      'cd ..'
@@ -23,6 +24,8 @@ alias   e       '$EDITOR'
 alias   de      'doas $EDITOR'
 
 alias   vis     '/usr/local/bin/vis'
+alias   v       'nvim'
+alias   dv      'doas nvim'
 
 #tmux
 alias   ta      'tmux attach -t'
@@ -115,6 +118,11 @@ end
 
 function vf
         gls | fzf | xargs -r -I % $EDITOR %
+end
+
+function rmf
+    #Fuzzy find the file to delete
+    find . -type f | fzf | xargs -r -I % rm -i %
 end
 
 function wiki
