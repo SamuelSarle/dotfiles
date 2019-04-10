@@ -1,7 +1,7 @@
 #common
 alias   l       'ls -lGF'
 alias   x       'tmux new-session -d -s x "startx" >/dev/null'
-alias   todo    '$EDITOR ~/Documents/todo.txt'
+alias   todo    '$EDITOR ~/doc/todo.txt'
 
 #common movements
 alias   ..      'cd ..'
