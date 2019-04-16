@@ -1,31 +1,24 @@
 #common
-alias   l       'ls -lGF'
-alias   x       'tmux new-session -d -s x "startx" >/dev/null'
-alias   todo    '$EDITOR ~/Documents/todo.txt'
+alias   l       'ls -lFh'
+
+#calendar
 
 #common movements
 alias   ..      'cd ..'
 alias   ...     'cd ../..'
 alias   ....    'cd ../../..'
-alias   1       'cd -'
-alias   2       'cd -2'
-alias   3       'cd -3'
 
 #edit dotfiles
-alias   ea      '$EDITOR ~/dotfiles/fish/aliases.fish'
-alias   ef      '$EDITOR ~/dotfiles/fish/config.fish'
-alias   eg      '$EDITOR ~/.gitconfig'
-alias   et      '$EDITOR ~/dotfiles/.tmux.conf'
-alias   ev      '$EDITOR ~/dotfiles/init.vim'
-alias   ee      '$EDITOR ~/dotfiles/vis/visrc.lua'
+alias   ea      'eval $EDITOR ~/dotfiles/fish/aliases.fish'
+alias   ef      'eval $EDITOR ~/dotfiles/fish/config.fish'
+alias   eg      'eval $EDITOR ~/.gitconfig'
+alias   et      'eval $EDITOR ~/dotfiles/.tmux.conf'
+alias   ev      'eval $EDITOR ~/dotfiles/init.vim'
+alias   ee      'eval $EDITOR ~/dotfiles/vis/visrc.lua'
 
-#editor
-alias   e       '$EDITOR'
+#eval editor
+alias   e       'eval $EDITOR'
 alias   de      'doas $EDITOR'
-
-alias   vis     '/usr/local/bin/vis'
-alias   v       'nvim'
-alias   dv      'doas nvim'
 
 #tmux
 alias   ta      'tmux attach -t'
@@ -46,30 +39,12 @@ alias   mv      'mv -i'
 
 #power management
 abbr    reboot   'doas reboot'
-abbr    poweroff 'doas poweroff'
+abbr    halt     'doas halt -p'
 
 #python
 abbr    py       'python3'
 abbr    ppi      'pip install --user'
 alias   senv     'source bin/activate.fish'
-
-#freebsd jails
-abbr    io       'doas iocage'
-abbr    iol      'iocage list'
-abbr    ioc      'doas iocage console'
-abbr    ios      'doas iocage start'
-abbr    ior      'doas iocage restart'
-abbr    iora     'doas iocage restart ALL'
-abbr    ioss     'doas iocage stop'
-abbr    iosa     'doas iocage stop ALL'
-
-#virtualization
-abbr    vm       'doas vm'
-abbr    vml      'doas vm list'
-abbr    vmc      'doas vm console'
-abbr    vms      'doas vm start'
-abbr    vmss     'doas vm stop'
-abbr    vmsa     'doas vm stopall'
 
 #git commands
 abbr    g        'git'
@@ -89,9 +64,9 @@ abbr    gf       'git fetch'
 abbr    gfo      'git fetch origin'
 abbr    gfa      'git fetch --all --prune'
 abbr    gls      'git ls-tree -r --name-only HEAD'
-abbr    gl       'git log'
+abbr    gl       'git log --oneline --decorate --color --graph'
 abbr    glg      'git log --stat --max-count=10'
-abbr    glog     'git log --oneline --decorate --color --graph'
+abbr    glog     'git log'
 abbr    gm       'git merge'
 abbr    gp       'git push'
 abbr    ggp      'git push origin HEAD'
@@ -108,7 +83,7 @@ abbr    grb      'git rebase'
 abbr    grbm     'git rebase master'
 abbr    grbd     'git rebase develop'
 abbr    grh      'git reset HEAD'
-abbr    grhh     'git reset HEAD --HARD'
+abbr    grhh     'git reset HEAD --hard'
 abbr    gs       'git status'
 abbr    gst      'git stash'
 
@@ -120,18 +95,15 @@ function vf
         gls | fzf | xargs -r -I % $EDITOR %
 end
 
-function rmf
-    #Fuzzy find the file to delete
+function rmf --description "Fuzzy find the file to delete"
     find . -type f | fzf | xargs -r -I % rm -i %
 end
 
-function wiki
-    #Fuzzy find a wiki to edit
+function wiki --description "Fuzzy find a wiki to edit"
     find ~/wiki/ -type f | fzf | xargs -r -I % $EDITOR %
 end
 
-function wikin
-    #Create a new wiki if it doesn't exist already
+function wikin --description "Create a new wiki if it doesn't exist already"
     if test (count $argv) -gt 0
         if test -e ~/wiki/$argv.md
             echo "That page already exists: $argv"
@@ -143,8 +115,7 @@ function wikin
     end
 end
 
-function wikirm
-    #Fuzzy find for a wiki to remove
+function wikirm --description "Fuzzy find for a wiki to remove"
     find ~/wiki/ -type f | fzf | xargs -r -I % rm %
 
     # Alternatively iterate over a list of wikis to delete
@@ -160,9 +131,7 @@ function wikirm
         # echo "Need argument(s) to remove wiki page(s)"
     # end
 end
-
-function wikimv
-    #Rename a wiki if it exists
+function wikimv --description "Rename a wiki"
     if test (count $argv) -eq 2
         if test -e ~/wiki/$argv[1].md
             mv ~/wiki/$argv[1].md ~/wiki/$argv[2].md

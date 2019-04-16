@@ -1,10 +1,12 @@
 . ~/.config/fish/aliases.fish
 
-set -x   PATH   ~/.local/bin  $PATH
-set -gx  EDITOR '/usr/local/bin/vis'
-set -gx  HOME   '/usr/home/samuel'
+set -x   PATH   ~/.local/bin  ~/bin $PATH
+set -x   GOPATH ~/go
+set -gx  EDITOR '/usr/local/bin/vise'
+set -gx  HOME   '/home/samuel'
 
-set -gx  fish_greeting  ''
+set -l   CAL_TMP (eval cw)
+set -gx  fish_greeting  $CAL_TMP
 
 set -U   FZF_TMUX             0
 set -gx  FZF_DEFAULT_OPTS     '--height=20% --min-height=15 --reverse'

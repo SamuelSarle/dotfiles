@@ -7,5 +7,8 @@ xset b off
 xrdb .Xresources
 setxkbmap -layout us
 xmodmap .xmodmaprc
-feh --bg-scale ~/Media/photos/wallpaper.jpg
-exec dwm
+xsetroot -bg solid '040404'
+feh --bg-scale ~/media/photos/wallpaper.jpg
+while true; do
+	dwm 2> ~/.dwm.log
+done
