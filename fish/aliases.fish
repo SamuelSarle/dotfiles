@@ -1,8 +1,6 @@
 #common
 alias   l       'ls -lFh'
 
-#calendar
-
 #common movements
 alias   ..      'cd ..'
 alias   ...     'cd ../..'

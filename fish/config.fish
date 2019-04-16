@@ -5,9 +5,6 @@ set -x   GOPATH ~/go
 set -gx  EDITOR '/usr/local/bin/vise'
 set -gx  HOME   '/home/samuel'
 
-set -l   CAL_TMP (eval cw)
-set -gx  fish_greeting  $CAL_TMP
-
 set -U   FZF_TMUX             0
 set -gx  FZF_DEFAULT_OPTS     '--height=20% --min-height=15 --reverse'
 set -gx  FZF_DEFAULT_COMMAND  'rg --files --no-ignore-vcs --hidden'
