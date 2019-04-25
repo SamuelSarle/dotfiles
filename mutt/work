@@ -1,0 +1,12 @@
+set folder = ~/mail/work
+set spoolfile = +/
+set record = +Sent
+set postponed = +Drafts
+
+# Sending
+set smtp_url = "smtps://samuel@work.com@mail.work.com:587"
+set realname = "Samuel Sarle"
+set from = samuel@work.com
+
+set ssl_force_tls = yes
+set ssl_starttls = yes

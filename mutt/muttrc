@@ -1,0 +1,32 @@
+
+set editor = `echo \$EDITOR`
+
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+
+mailboxes = ~/mail/work = ~/mail/personal
+
+# Ctrl-Shift-P – Previous Mailbox
+bind index,pager \CP sidebar-prev
+
+# Ctrl-Shift-N – Next Mailbox
+bind index,pager \CN sidebar-next
+
+# Ctrl-Shift-O – Open Highlighted Mailbox
+bind index,pager \CO sidebar-open
+
+set mbox_type = Maildir
+set header_cache = ~/.cache/mutt
+set imap_keepalive = 300
+set mail_check = 60
+
+# Work Account
+source "~/.config/mutt/work"
+folder-hook $folder 'source ~/.config/mutt/work'
+
+# Gmail Account
+#source "~/.config/mutt/gmail"
+#folder-hook $folder 'source ~/.config/mutt/gmail'
+
+auto_view text/html

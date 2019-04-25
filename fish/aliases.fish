@@ -1,10 +1,31 @@
 #common
-alias   l       'ls -lFh'
+alias   l        'ls -lFh'
+
+alias   neofetch 'neofetch --gtk3 off --ascii_distro openbsd_small --disable cpu gpu memory --color_blocks off'
 
 #common movements
 alias   ..      'cd ..'
 alias   ...     'cd ../..'
-alias   ....    'cd ../../..'
+
+#taskwarrior
+alias   t       'task'
+alias   ta      'task add'
+alias   tm      'task modify'
+alias   te      'task edit'
+alias   td      'task done'
+alias   trm     'task delete'
+alias   tl      'task ls due.before:now+30d'
+alias   tlo     'task ls due:'
+alias   tla     'task ls'
+alias   ti      'task info'
+
+function tlp --description "Print tasks associated with a project"
+	if test (count $argv) -eq 1
+		task ls pro:$argv[1]
+	else
+		echo "Need one argument to use"
+	end
+end
 
 #edit dotfiles
 alias   ea      'eval $EDITOR ~/dotfiles/fish/aliases.fish'
@@ -14,18 +35,18 @@ alias   et      'eval $EDITOR ~/dotfiles/.tmux.conf'
 alias   ev      'eval $EDITOR ~/dotfiles/init.vim'
 alias   ee      'eval $EDITOR ~/dotfiles/vis/visrc.lua'
 
-#eval editor
+#editor
 alias   e       'eval $EDITOR'
 alias   de      'doas $EDITOR'
 
 #tmux
-alias   ta      'tmux attach -t'
-alias   ts      'tmux new-session -s'
-alias   tl      'tmux ls'
+alias   tma     'tmux attach -t'
+alias   tms     'tmux new-session -s'
+alias   tml     'tmux ls'
 alias   tkss    'tmux kill-session -t'
 alias   tksv    'tmux kill-server'
 
-#youtube streaming
+#youtube
 alias   mpva    'mpv --no-video'
 alias   yt      'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias   yta     'yt -x -f bestaudio/best'
@@ -40,7 +61,7 @@ abbr    reboot   'doas reboot'
 abbr    halt     'doas halt -p'
 
 #python
-abbr    py       'python3'
+abbr    py       'python3 -q'
 abbr    ppi      'pip install --user'
 alias   senv     'source bin/activate.fish'
 
@@ -86,86 +107,98 @@ abbr    gs       'git status'
 abbr    gst      'git stash'
 
 function gls
-        git ls-tree -r --name-only HEAD
+	git ls-tree -r --name-only HEAD
 end
 
-function vf
-        gls | fzf | xargs -r -I % $EDITOR %
+function fe
+	gls | fzf | xargs -r -I % $EDITOR %
 end
 
 function rmf --description "Fuzzy find the file to delete"
-    find . -type f | fzf | xargs -r -I % rm -i %
+	find . -type f | fzf | xargs -r -I % rm -i %
 end
 
 function wiki --description "Fuzzy find a wiki to edit"
-    find ~/wiki/ -type f | fzf | xargs -r -I % $EDITOR %
+	find ~/wiki/ -type f | fzf | xargs -r -I % $EDITOR %
 end
 
 function wikin --description "Create a new wiki if it doesn't exist already"
-    if test (count $argv) -gt 0
-        if test -e ~/wiki/$argv.md
-            echo "That page already exists: $argv"
-        else
-            touch ~/wiki/$argv.md; and $EDITOR ~/wiki/$argv.md
-        end
-    else
-        echo "Need an argument to create a wiki page"
-    end
+	if test (count $argv) -gt 0
+		if test -e ~/wiki/$argv.md
+			echo "That page already exists: $argv"
+		else
+			touch ~/wiki/$argv.md; and eval $EDITOR ~/wiki/$argv.md
+		end
+	else
+		echo "Need an argument to create a wiki page"
+	end
 end
 
 function wikirm --description "Fuzzy find for a wiki to remove"
-    find ~/wiki/ -type f | fzf | xargs -r -I % rm %
+	find ~/wiki/ -type f | fzf | xargs -r -I % rm %
 
-    # Alternatively iterate over a list of wikis to delete
-    # if test (count $argv) -gt 0
-        # for page in $argv
-            # if test -e ~/wiki/$page.md
-                # rm -f ~/wiki/$page.md
-            # else
-                # echo "That page doesn't exist: $page"
-            # end
-        # end
-    # else
-        # echo "Need argument(s) to remove wiki page(s)"
-    # end
+	# Alternatively iterate over a list of wikis to delete
+	# if test (count $argv) -gt 0
+		# for page in $argv
+			# if test -e ~/wiki/$page.md
+				# rm -f ~/wiki/$page.md
+			# else
+				# echo "That page doesn't exist: $page"
+			# end
+		# end
+	# else
+		# echo "Need argument(s) to remove wiki page(s)"
+	# end
 end
 function wikimv --description "Rename a wiki"
-    if test (count $argv) -eq 2
-        if test -e ~/wiki/$argv[1].md
-            mv ~/wiki/$argv[1].md ~/wiki/$argv[2].md
-        else
-            echo "File to be renamed doesn't exist: $argv[1]"
-        end
-    else
-        echo "Incorrect amount of arguments, need two"
-    end
+	if test (count $argv) -eq 2
+		if test -e ~/wiki/$argv[1].md
+			if test -e ~/wiki/$argv[2].md
+				echo "Collision, new name already exists: $argv[2]"
+			else
+				mv ~/wiki/$argv[1].md ~/wiki/$argv[2].md
+			end
+		else
+			echo "File to be renamed doesn't exist: $argv[1]"
+		end
+	else
+		echo "Incorrect amount of arguments, need two"
+	end
 end
 
 function kp --description "Kill processes"
-  set -l __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS -m --header='[kill:process]'" | awk '{print $1}')
-  set -l __kp__kc $argv[1]
+	set -l __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS -m --header='[kill:process]'" | awk '{print $1}')
+	set -l __kp__kc $argv[1]
 
-  if test "x$__kp__pid" != "x"
-    if test "x$argv[1]" != "x"
-      echo $__kp__pid | xargs kill $argv[1]
-    else
-      echo $__kp__pid | xargs kill -9
-    end
-    kp
-  end
+	if test "x$__kp__pid" != "x"
+		if test "x$argv[1]" != "x"
+			echo $__kp__pid | xargs kill $argv[1]
+		else
+			echo $__kp__pid | xargs kill -9
+		end
+		kp
+	end
 end
 
 function fp --description "Search your path"
-  set -l loc (echo $PATH | tr ' ' '\n' | eval "fzf $FZF_DEFAULT_OPTS --header='[find:path]'")
+	set -l loc (echo $PATH | tr ' ' '\n' | eval "fzf $FZF_DEFAULT_OPTS --header='[find:path]'")
 
-  if test (count $loc) = 1
-    set -l cmd (rg --files -L $loc | rev | cut -d'/' -f1 | rev | tr ' ' '\n' | eval "fzf $FZF_DEFAULT_OPTS --header='[find:exe] => $loc'")
-    if test (count $cmd) = 1
-      echo $cmd
-    else
-      fp
-    end
-  end
+	if test (count $loc) = 1
+		set -l cmd (rg --files -L $loc | rev | cut -d'/' -f1 | rev | tr ' ' '\n' | eval "fzf $FZF_DEFAULT_OPTS --header='[find:exe] => $loc'")
+		if test (count $cmd) = 1
+			echo $cmd
+		else
+			fp
+		end
+	end
+end
+
+function fssh -d "Fuzzy-find ssh host via rg and ssh into it"
+	rg --ignore-case '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | read -l result; and ssh "$result"
+end
+
+function fs -d "Switch tmux session"
+	tmux list-sessions -F "#{session_name}" | fzf | read -l result; and tmux switch-client -t "$result"
 end
 
 #abbreviations for some common spelling errors
