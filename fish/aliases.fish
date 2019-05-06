@@ -28,16 +28,16 @@ function tlp --description "Print tasks associated with a project"
 end
 
 #edit dotfiles
-alias   ea      'eval $EDITOR ~/dotfiles/fish/aliases.fish'
-alias   ef      'eval $EDITOR ~/dotfiles/fish/config.fish'
-alias   eg      'eval $EDITOR ~/.gitconfig'
-alias   et      'eval $EDITOR ~/dotfiles/.tmux.conf'
-alias   ev      'eval $EDITOR ~/dotfiles/init.vim'
-alias   ee      'eval $EDITOR ~/dotfiles/vis/visrc.lua'
+alias   ea      'vim ~/dotfiles/fish/aliases.fish'
+alias   ef      'vim ~/dotfiles/fish/config.fish'
+alias   eg      'vim ~/.gitconfig'
+alias   et      'vim ~/dotfiles/.tmux.conf'
+alias   ev      'vim ~/dotfiles/init.vim'
+alias   ee      'vim ~/dotfiles/vis/visrc.lua'
 
 #editor
-alias   e       'eval $EDITOR'
-alias   de      'doas $EDITOR'
+alias   e       'vim'
+alias   de      'doas vim'
 
 #tmux
 alias   tma     'tmux attach -t'
