@@ -1,7 +1,7 @@
 #!/bin/sh
 
 while true; do
-	xsetroot -name "`apm | awk '!/absent/ && /[0-9]+%/ {print$4 " |"}'` `date "+%a %Y-%m-%d %H:%M:%S"`"
+	xsetroot -name "`apm | awk '!/absent/ && /[0-9]+%/ {print$4" |"}'` `awk '{print$0" |"}' /tmp/weather` `date "+%a %Y-%m-%d %H:%M:%S"`"
 	sleep 1
 done &
 

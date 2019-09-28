@@ -1,10 +1,10 @@
 . ~/.config/fish/aliases.fish
 
-set -gx  PATH $PATH ~/bin ~/go/bin ~/.local/bin
-set -gx  GOPATH ~/go
-set -gx  EDITOR '/usr/local/bin/vise'
+set -gx  PATH     $PATH ~/bin ~/go/bin ~/.local/bin
+set -gx  GOPATH   ~/go
+set -gx  EDITOR   nvim
 set -gx  MANPAGER less
-set -gx  HOME   '/home/samuel'
+set -gx  HOME     '/home/samuel'
 
 function fish_prompt
 	echo '; '

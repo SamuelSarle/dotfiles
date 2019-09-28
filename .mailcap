@@ -1,1 +1,1 @@
-text/html; /usr/local/bin/html2text -nobs -width 200 %s; copiousoutput;
+text/html; /usr/local/bin/html2text -nobs -width 160 %s; copiousoutput;

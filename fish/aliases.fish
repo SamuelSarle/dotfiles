@@ -1,5 +1,8 @@
 #common
 alias   l        'ls -lFh'
+alias   d        'pwd'
+alias   p        'ping -c 3 1.1.1.1'
+alias   htop     'htop -t'
 
 alias   neofetch 'neofetch --gtk3 off --ascii_distro openbsd_small --disable cpu gpu memory --color_blocks off'
 
@@ -49,6 +52,7 @@ alias   tksv    'tmux kill-server'
 #youtube
 alias   mpva    'mpv --no-video'
 alias   yt      'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
+alias   yt2     'youtube-dl -f 22 -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias   yta     'yt -x -f bestaudio/best'
 
 #confirm the operations unless -f is specified
@@ -180,25 +184,20 @@ function kp --description "Kill processes"
 	end
 end
 
-function fp --description "Search your path"
-	set -l loc (echo $PATH | tr ' ' '\n' | eval "fzf $FZF_DEFAULT_OPTS --header='[find:path]'")
-
-	if test (count $loc) = 1
-		set -l cmd (rg --files -L $loc | rev | cut -d'/' -f1 | rev | tr ' ' '\n' | eval "fzf $FZF_DEFAULT_OPTS --header='[find:exe] => $loc'")
-		if test (count $cmd) = 1
-			echo $cmd
-		else
-			fp
-		end
-	end
-end
-
 function fssh -d "Fuzzy-find ssh host via rg and ssh into it"
 	rg --ignore-case '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | read -l result; and ssh "$result"
 end
 
-function fs -d "Switch tmux session"
-	tmux list-sessions -F "#{session_name}" | fzf | read -l result; and tmux switch-client -t "$result"
+function qr --description "QR encode a string"
+	printf "$argv" | curl -F-=\<- qrenco.de
+end
+
+function weather --description "Get weather information for city."
+	if test (count $argv) -eq 1
+		curl "wttr.in/$argv[1]?2qFTn&lang=uk"
+	else
+		curl 'wttr.in/?2qFTn&lang=uk'
+	end
 end
 
 #abbreviations for some common spelling errors
