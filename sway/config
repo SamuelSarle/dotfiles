@@ -45,8 +45,8 @@ bindsym --to-code {
     #some utils
     $mod+Shift+r exec openrss
     $mod+Shift+b exec openbookmark
-    $mod+m exec plaympv
-    $mod+Shift+m exec plaympvaudio
+    $mod+m exec m
+    $mod+Shift+m exec ma
 
     #screenshots
     Insert exec screenshot
