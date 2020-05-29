@@ -1,72 +1,40 @@
 #common
-alias   l        'ls -lFh'
-alias   d        'pwd'
-alias   p        'ping -c 3 1.1.1.1'
-alias   htop     'htop -t'
-
-alias   neofetch 'neofetch --gtk3 off --ascii_distro openbsd_small --disable cpu gpu memory --color_blocks off'
+alias l    'ls -lFh'
+alias p    'pwd'
+alias p3   'ping -c 3 1.1.1.1'
+alias htop 'htop -t'
 
 #common movements
 alias   ..      'cd ..'
 alias   ...     'cd ../..'
 
-#taskwarrior
-alias   t       'task'
-alias   ta      'task add'
-alias   tm      'task modify'
-alias   te      'task edit'
-alias   td      'task done'
-alias   trm     'task delete'
-alias   tl      'task ls due.before:now+30d'
-alias   tlo     'task ls due:'
-alias   tla     'task ls'
-alias   ti      'task info'
-
-function tlp --description "Print tasks associated with a project"
-	if test (count $argv) -eq 1
-		task ls pro:$argv[1]
-	else
-		echo "Need one argument to use"
-	end
-end
-
 #edit dotfiles
-alias   ea      'vim ~/dotfiles/fish/aliases.fish'
-alias   ef      'vim ~/dotfiles/fish/config.fish'
+alias   ea      'vim ~/repos/dotfiles/fish/aliases.fish'
+alias   ef      'vim ~/repos/dotfiles/fish/config.fish'
 alias   eg      'vim ~/.gitconfig'
-alias   et      'vim ~/dotfiles/.tmux.conf'
-alias   ev      'vim ~/dotfiles/init.vim'
-alias   ee      'vim ~/dotfiles/vis/visrc.lua'
+alias   et      'vim ~/repos/dotfiles/.tmux.conf'
+alias   ev      'vim ~/repos/dotfiles/init.vim'
+alias   ee      'vim ~/repos/dotfiles/vis/visrc.lua'
 
 #editor
 alias   e       'vim'
-alias   de      'doas vim'
-
-#tmux
-alias   tma     'tmux attach -t'
-alias   tms     'tmux new-session -s'
-alias   tml     'tmux ls'
-alias   tkss    'tmux kill-session -t'
-alias   tksv    'tmux kill-server'
+alias   se      'sudo vim'
 
 #youtube
-alias   mpva    'mpv --no-video'
 alias   yt      'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias   yt2     'youtube-dl -f 22 -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias   yta     'yt -x -f bestaudio/best'
 
-#confirm the operations unless -f is specified
-alias   rm      'rm -i'
+#confirm overwriting unless -f is specified
 alias   cp      'cp -i'
 alias   mv      'mv -i'
 
 #power management
-abbr    reboot   'doas reboot'
-abbr    halt     'doas halt -p'
+abbr    reboot   'sudo reboot'
 
 #python
 abbr    py       'python3 -q'
-abbr    ppi      'pip install --user'
+abbr    ppi      'python3 -m pip install --user'
 alias   senv     'source bin/activate.fish'
 
 #git commands
@@ -110,66 +78,6 @@ abbr    grhh     'git reset HEAD --hard'
 abbr    gs       'git status'
 abbr    gst      'git stash'
 
-function gls
-	git ls-tree -r --name-only HEAD
-end
-
-function fe
-	gls | fzf | xargs -r -I % $EDITOR %
-end
-
-function rmf --description "Fuzzy find the file to delete"
-	find . -type f | fzf | xargs -r -I % rm -i %
-end
-
-function wiki --description "Fuzzy find a wiki to edit"
-	find ~/wiki/ -type f | fzf | xargs -r -I % $EDITOR %
-end
-
-function wikin --description "Create a new wiki if it doesn't exist already"
-	if test (count $argv) -gt 0
-		if test -e ~/wiki/$argv.md
-			echo "That page already exists: $argv"
-		else
-			touch ~/wiki/$argv.md; and eval $EDITOR ~/wiki/$argv.md
-		end
-	else
-		echo "Need an argument to create a wiki page"
-	end
-end
-
-function wikirm --description "Fuzzy find for a wiki to remove"
-	find ~/wiki/ -type f | fzf | xargs -r -I % rm %
-
-	# Alternatively iterate over a list of wikis to delete
-	# if test (count $argv) -gt 0
-		# for page in $argv
-			# if test -e ~/wiki/$page.md
-				# rm -f ~/wiki/$page.md
-			# else
-				# echo "That page doesn't exist: $page"
-			# end
-		# end
-	# else
-		# echo "Need argument(s) to remove wiki page(s)"
-	# end
-end
-function wikimv --description "Rename a wiki"
-	if test (count $argv) -eq 2
-		if test -e ~/wiki/$argv[1].md
-			if test -e ~/wiki/$argv[2].md
-				echo "Collision, new name already exists: $argv[2]"
-			else
-				mv ~/wiki/$argv[1].md ~/wiki/$argv[2].md
-			end
-		else
-			echo "File to be renamed doesn't exist: $argv[1]"
-		end
-	else
-		echo "Incorrect amount of arguments, need two"
-	end
-end
-
 function kp --description "Kill processes"
 	set -l __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS -m --header='[kill:process]'" | awk '{print $1}')
 	set -l __kp__kc $argv[1]
@@ -200,5 +108,5 @@ function weather --description "Get weather information for city."
 	end
 end
 
-#abbreviations for some common spelling errors
+#abbreviations spelling errors
 abbr    hotp     'htop'

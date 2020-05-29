@@ -1,28 +1,26 @@
 -- load standard vis module, providing parts of the Lua API
 require('vis')
-require("vis-commentary")            -- https://github.com/lutobler/vis-commentary
-require('surround')                  -- https://repo.or.cz/vis-surround.git
-require('pairs')                     -- https://repo.or.cz/vis-pairs.git
-backup = require('backup')           -- https://github.com/roguh/vis-backup
 
-plugin_vis_open =require('fzf-open') -- https://github.com/guillaumecherel/vis-fzf-open
+--require('surround')                  -- https://repo.or.cz/vis-surround.git
+--require('pairs')                     -- https://repo.or.cz/vis-pairs.git
+--backup = require('backup')           -- https://github.com/roguh/vis-backup
 
-backup.get_fname = backup.entire_path_with_timestamp
+local plugins = {
+	['https://github.com/lutobler/vis-commentary.git'] = 'vis-commentary',
+	['https://github.com/guillaumecherel/vis-fzf-open.git'] = 'vis-fzf-open',
+	['https://gitlab.com/mcepl/vis-jump.git'] = 'vis-jump',
+}
 
--- Path to the fzf executable (default: "fzf")
-plugin_vis_open.fzf_path = "fzf"
+require('plugins/vis-plug').init(plugins)
 
--- Arguments passed to fzf (defaul: "")
-plugin_vis_open.fzf_args = "-q '!.class '"
-
-vis.events.subscribe(vis.events.INIT, function()
+--vis.events.subscribe(vis.events.INIT, function()
 	-- Your global configuration options
-end)
+--end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 	-- Your per window configuration options e.g.
-	vis:command('set number off')
-	vis:command('set relativenumbers off')
+	vis:command('set number on')
+	vis:command('set relativenumbers on')
 	vis:command('set cursorline on')
 	vis:command('set show-newlines on')
 	vis:command('set show-tabs on')
@@ -38,8 +36,8 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
 	-- vis:map(vis.modes.NORMAL, "abc", )
 
 	-- TODO remove trailing whitespace before writing to disk
-	vis.events.subscribe(vis.events.FILE_SAVE_PRE, function(file, path)
-	    return true
-	end)
+	--vis.events.subscribe(vis.events.FILE_SAVE_PRE, function(file, path)
+--	    return true
+--	end)
 end)
 

@@ -1,17 +1,24 @@
 . ~/.config/fish/aliases.fish
 
-set -gx  PATH     $PATH ~/bin ~/go/bin ~/.local/bin
-set -gx  GOPATH   ~/go
-set -gx  EDITOR   nvim
-set -gx  MANPAGER less
-set -gx  HOME     '/home/samuel'
+set -Ux GOPATH   ~/go
+set -Ux EDITOR   nvim
+set -Ux MANPAGER less
+set -Ux BROWSER  firefox
+set -Ux TERMINAL sakura
+set -Ux HOME     /home/s/
 
-function fish_prompt
-	echo '; '
-end
+set -gx PATH     ~/bin ~/go/bin ~/.local/bin ~/go/bin /usr/local/go/bin $PATH
 
-set -U   FZF_TMUX               0
-set -U   FZF_LEGACY_KEYBINDINGS 1
+set -gx LC_ALL             "en_US.UTF-8"
+
+set -gx MOZ_ENABLE_WAYLAND 1
+set -gx XKB_DEFAULT_LAYOUT us
+set -gx LESSHISTFILE       "-"
+
+set -Ux  FZF_TMUX               0
+set -Ux  FZF_LEGACY_KEYBINDINGS 1
 set -gx  FZF_DEFAULT_OPTS       '--height=20% --min-height=15 --reverse'
 set -gx  FZF_DEFAULT_COMMAND    'rg --files --no-ignore-vcs --hidden'
 set -gx  FZF_CTRL_T_COMMAND     $FZF_DEFAULT_COMMAND
+
+set -U fish_greeting ""
