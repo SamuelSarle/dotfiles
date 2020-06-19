@@ -1,5 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'alok/notational-fzf-vim'
+Plug 'auwsmit/vim-active-numbers'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -8,11 +9,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-sneak'
-Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
+Plug 'takac/vim-hardtime'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'valloric/youcompleteme', {'do': './install.py --go-completer'}
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! s:GotoOrOpen(command, ...)
@@ -28,25 +30,19 @@ command! -nargs=+ GotoOrOpen call s:GotoOrOpen(<f-args>)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "fzf shortcuts
 nnoremap <silent> <C-f> :Files<CR>
-nnoremap <silent> <C-l> :Lines<CR>
 nnoremap <silent> <C-g> :Rg<CR>
 nnoremap <silent> <C-s> :Snippets<CR>
-let g:fzf_action = {
-	\ 'return': 'GotoOrOpen tab',
-	\ 'ctrl-h': 'edit',
-	\ 'ctrl-j': 'split',
-	\ 'ctrl-k': 'vsplit' }
-let g:fzf_buffers_jump = 1
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 xmap ga <Plug>(EasyAlign)
 nnoremap <silent> <c-n> :NV<CR>
-nmap <F8> :TagbarToggle<CR>
-let mapleader=","
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
 nnoremap <space><space> :nohlsearch<CR>
 noremap j gj
 noremap k gk
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
 "copying and pasting to system clipboard
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
@@ -67,16 +63,30 @@ xnoremap <C-V> v
 xnoremap <  <gv
 xnoremap >  >gv
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let home = expand('~')
-exec 'source' home . '/.config/nvim/ctags.vim'
+let mapleader=","
+let g:fzf_action = {
+	\ 'return': 'GotoOrOpen tab',
+	\ 'ctrl-h': 'edit',
+	\ 'ctrl-j': 'split',
+	\ 'ctrl-k': 'vsplit' }
+let g:fzf_buffers_jump = 1
+let g:UltiSnipsExpandTrigger="<c-c>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:ycm_show_diagnostics_ui = 0
+let g:tagbar_left = 1
 let g:sneak#streak = 1
 let g:sneak#s_next = 1
 let g:sneak#use_ic_scs = 1
 let g:sneak#absolute_dir = 1
 let g:nv_search_paths = ['~/docs/notes']
 let g:nv_create_note_window = 'split'
+let g:hardtime_default_on = 1
+let home = expand('~')
+exec 'source' home . '/.config/nvim/ctags.vim'
+set encoding=utf-8
 set noexpandtab tabstop=8 shiftwidth=8
-set scrolloff=10 sidescroll=6
+set scrolloff=999 sidescroll=6
 set number norelativenumber
 set cursorline
 set noshowcmd noshowmode

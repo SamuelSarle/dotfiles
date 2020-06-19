@@ -126,6 +126,8 @@ mode "resize" {
 
 for_window [app_id="^mpv$"] \
     floating enable, resize set 355 200 px, move absolute position 1240px 695px, sticky enable, border none
+for_window [app_id="firefox" title="^Picture-in-Picture$"] \
+    floating enable, resize set 355 200 px, move absolute position 1240px 695px, sticky enable, border none
 
 #`man 5 sway-bar`
 # bar {

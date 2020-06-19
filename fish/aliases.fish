@@ -13,7 +13,7 @@ alias ea 'vim ~/repos/dotfiles/fish/aliases.fish'
 alias ef 'vim ~/repos/dotfiles/fish/config.fish'
 alias eg 'vim ~/.gitconfig'
 alias et 'vim ~/repos/dotfiles/.tmux.conf'
-alias ev 'vim ~/repos/dotfiles/init.vim'
+alias ev 'vim ~/repos/dotfiles/nvim/init.vim'
 alias ee 'vim ~/repos/dotfiles/vis/visrc.lua'
 
 #editor
@@ -25,9 +25,9 @@ alias yt  'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias yt2 'youtube-dl -f 22 -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias yta 'yt -x -f bestaudio/best'
 
-#confirm overwriting unless -f is specified
-alias cp 'cp -i'
-alias mv 'mv -i'
+#confirm overwriting unless -f is specified, more verbose
+alias cp 'cp -iv'
+alias mv 'mv -iv'
 
 #power management
 abbr reboot 'sudo reboot'
@@ -38,14 +38,18 @@ abbr  ppi  'python3 -m pip install --user'
 alias senv 'source bin/activate.fish'
 
 #docker-compose
-abbr dco   'docker-compose'
 abbr dcb   'docker-compose build'
-abbr dcps  'docker-compose ps'
-abbr dcup  'docker-compose up'
-abbr dcupd 'docker-compose up -d'
+abbr dcbnc 'docker-compose build --no-cache'
 abbr dcdn  'docker-compose down'
 abbr dcl   'docker-compose logs'
 abbr dclf  'docker-compose logs -f'
+abbr dco   'docker-compose'
+abbr dcps  'docker-compose ps'
+abbr dcre  'docker-compose restart'
+abbr dcrm  'docker-compose rm'
+abbr dcst  'docker-compose stop'
+abbr dcupd 'docker-compose up -d'
+abbr dcup  'docker-compose up'
 
 #git commands
 abbr g     'git'

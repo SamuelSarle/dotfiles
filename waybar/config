@@ -22,7 +22,7 @@
 			},
 			"clock": {
 				"interval": 30,
-				"format": "{:20%y-%m-%d %R}",
+				"format": "{:20%y-%m-%d (%a) %R}",
 				"tooltip": false
 			},
 			"battery": {
