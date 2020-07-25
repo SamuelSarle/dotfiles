@@ -4,7 +4,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term sakura
+set $term st
 set $background ~/media/images/wall.jpg
 set $menu dmenu_path | ~/.local/bin/dmenu | xargs swaymsg exec --
 set $lock swaylock -f -c 000000
@@ -52,8 +52,8 @@ bindsym --to-code {
     Insert exec screenshot
     shift+Insert exec screenshot-area
 
-    $mod+z exec sakura -e lf
-    $mod+Shift+z exec sakura -e alsamixer
+    $mod+z exec $term -e lf
+    $mod+Shift+z exec $term -e alsamixer
 
     $mod+Return exec $term
 
@@ -158,6 +158,7 @@ client.focused #ffffff #ffffff #ffffff #ffffff
 client.unfocused #000000 #000000 #000000 #000000
 client.focused_inactive #000000 #000000 #000000 #000000
 
-output * bg $background fill
+output * bg $background stretch
 
+#(one of "stretch", "fill", "fit", "center", "tile").
 include /etc/sway/config.d/*

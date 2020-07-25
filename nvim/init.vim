@@ -15,8 +15,13 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'valloric/youcompleteme', {'do': './install.py --go-completer'}
+Plug 'ap/vim-css-color'
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! ExecuteMacroOverVisualRange()
+	echo "@".getcmdline()
+	execute ":'<,'>normal @".nr2char(getchar())
+endfunction
 function! s:GotoOrOpen(command, ...)
 	for file in a:000
 		if a:command == 'e'
@@ -37,8 +42,6 @@ nnoremap <silent> <c-n> :NV<CR>
 map s <Plug>Sneak_s
 map S <Plug>Sneak_S
 nnoremap <space><space> :nohlsearch<CR>
-noremap j gj
-noremap k gk
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
@@ -49,11 +52,6 @@ nnoremap <leader>p "+p
 "select the inserted text
 nnoremap gV `[v`]
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-function! ExecuteMacroOverVisualRange()
-	echo "@".getcmdline()
-	execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-autocmd BufWritePre * %s/\s\+$//e
 "change visual and visual block around
 nnoremap v <C-V>
 xnoremap v <C-V>
@@ -63,6 +61,7 @@ xnoremap <C-V> v
 xnoremap <  <gv
 xnoremap >  >gv
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufWritePre * %s/\s\+$//e
 let mapleader=","
 let g:fzf_action = {
 	\ 'return': 'GotoOrOpen tab',

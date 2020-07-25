@@ -30,7 +30,8 @@ alias cp 'cp -iv'
 alias mv 'mv -iv'
 
 #power management
-abbr reboot 'sudo reboot'
+abbr reboot   'sudo reboot'
+abbr poweroff 'sudo shutdown -h now'
 
 #python
 abbr  py   'python3 -q'

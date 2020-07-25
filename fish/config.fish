@@ -4,12 +4,12 @@ set -Ux GOPATH   ~/go
 set -Ux EDITOR   nvim
 set -Ux MANPAGER less
 set -Ux BROWSER  firefox
-set -Ux TERMINAL sakura
+set -Ux TERMINAL st
 set -Ux HOME     /home/s/
 
-set -gx PATH     ~/bin ~/go/bin ~/.local/bin ~/go/bin /usr/local/go/bin $PATH
+set -gx PATH   /bin ~/go/bin ~/.local/bin ~/go/bin $PATH
 
-set -gx LC_ALL             "en_US.UTF-8"
+set -gx LC_ALL "en_US.UTF-8"
 
 set -gx MOZ_ENABLE_WAYLAND 1
 set -gx XKB_DEFAULT_LAYOUT us

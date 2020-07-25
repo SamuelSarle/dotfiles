@@ -1,72 +1,76 @@
 * {
+
     border: none;
+
     border-radius: 0;
-    font-family: dina;
-    font-weight: bold;
-    color: #afafaf;
-    font-size: 13px;
-    min-height: 0px;
+
+    font-family: "dina";
+
+    font-size: 11px;
+
+    min-height: 0;
+
 }
+
+
+
 window#waybar {
-    background: #000000;
-    color: #aab2bf;
+
+    background: transparent;
+
+    color: white;
+
 }
+
+
+
 #window {
-    padding: 0 0px;
+
+    font-weight: bold;
+
+    font-family: "dina";
+
 }
-#workspaces button:hover {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    background: #16191C;
-    border: #16191C;
-    padding: 0 3px;
-}
-#workspaces button:hover {
-    padding: 0 5px;
-}
+
+
 #workspaces button {
+
     padding: 0 5px;
-    color: #aab2bf;
+
+    /* background: transparent; */
+    opacity: 0.50;
+
+    color: white;
+
+
 }
+
+
+
 #workspaces button.focused {
-    border-top: 2px solid @color15;
-    color: #aab2bf;
+
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+
 }
+
+
+
 #mode {
-    background: #000000;
-    border-bottom: 2px solid @color15;
-    margin: 0 10px;
-}
-#custom-separator {
-    color: #4c566a;
+
+    background: #64727D;
+
+    border-bottom: 3px solid white;
+
 }
 
-#memory.warning,
-#cpu.warning,
-#battery.warning:not(.charging) {
-    color: #997350;
-}
 
-#memory.critical,
-#battery.critical:not(.charging),
-#cpu.critical,
-#temperature.critical,
-#network.linked,
-#network.disconnected {
-    color: #A3535A;
-}
 
-#clock,
-#battery,
-#cpu,
-#memory,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor {
-    padding: 0 12px
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
+
+    padding: 0 3px;
+
+    margin: 0 2px;
+
 }
