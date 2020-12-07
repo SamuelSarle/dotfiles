@@ -1,5 +1,6 @@
 #common
-alias l    'ls -lFh'
+alias l    'ls -Fgh'
+alias la   'ls -AFgh'
 alias p    'pwd'
 alias p3   'ping -c 3 1.1.1.1'
 alias htop 'htop -t'
@@ -14,11 +15,10 @@ alias ef 'vim ~/repos/dotfiles/fish/config.fish'
 alias eg 'vim ~/.gitconfig'
 alias et 'vim ~/repos/dotfiles/.tmux.conf'
 alias ev 'vim ~/repos/dotfiles/nvim/init.vim'
-alias ee 'vim ~/repos/dotfiles/vis/visrc.lua'
 
 #editor
 alias e  'vim'
-alias se 'sudo vim'
+alias de 'doas vim'
 
 #youtube
 alias yt  'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
@@ -28,10 +28,15 @@ alias yta 'yt -x -f bestaudio/best'
 #confirm overwriting unless -f is specified, more verbose
 alias cp 'cp -iv'
 alias mv 'mv -iv'
+alias rm 'rm -v'
+
+alias t  'tmux'
+alias ta 'tmux attach -t'
+alias tn 'tmux new-session -s'
 
 #power management
-abbr reboot   'sudo reboot'
-abbr poweroff 'sudo shutdown -h now'
+abbr reboot   'doas reboot'
+abbr poweroff 'doas halt -p'
 
 #python
 abbr  py   'python3 -q'
@@ -85,9 +90,6 @@ abbr grrm  'git remote remove'
 abbr grset 'git remote set-url'
 abbr grup  'git remote update'
 abbr grv   'git remote -v'
-abbr grb   'git rebase'
-abbr grbm  'git rebase master'
-abbr grbd  'git rebase develop'
 abbr grh   'git reset HEAD'
 abbr grhh  'git reset HEAD --hard'
 abbr gs    'git status'

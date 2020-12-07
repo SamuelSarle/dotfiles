@@ -1,14 +1,14 @@
 #!/bin/sh
 
 while true; do
-	xsetroot -name "`apm | awk '!/absent/ && /[0-9]+%/ {print$4" |"}'` `awk '{print$0" |"}' /tmp/weather` `date "+%a %Y-%m-%d %H:%M:%S"`"
+	xsetroot -name "`apm | awk '!/absent/ && /[0-9]+%/ {print$4" |"}'` `date "+%Y-%m-%d (%a) %H:%M:%S "`"
 	sleep 1
 done &
 
-xset r rate 300 50
+xset r rate 350 50
 xset b off
 setxkbmap -layout us
-setxkbmap -option grp:alt_space_toggle us,ua,ru
+setxkbmap -option grp:alt_space_toggle us,ua
 xmodmap .xmodmaprc
 
 xrdb .Xresources
