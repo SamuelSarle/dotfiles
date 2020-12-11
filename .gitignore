@@ -2,3 +2,5 @@ fish/completions/
 fish/functions/
 fish/conf.d/
 fish/fish_variables
+kak/plugins/
+kak/colors/

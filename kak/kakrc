@@ -1,0 +1,99 @@
+evaluate-commands %sh{
+  if [ ! -d "$kak_config/plugins/plug.kak" ]; then
+    mkdir -p "$kak_config/plugins"
+    git clone https://github.com/robertmeta/plug.kak.git "$kak_config/plugins/plug.kak"
+  fi
+}
+#set-option global plug_always_ensure 'true'
+
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
+plug "robertmeta/plug.kak" noload
+#plug "Jackojc/ultrasonic" theme config %{ colorscheme ultrasonic }
+plug "codymlewis/torchwood" theme config %{ colorscheme torchwood }
+plug "danr/kakoune-easymotion" config %{
+    map global user w :easy-motion-w<ret>
+    map global user W :easy-motion-W<ret>
+}
+plug "andreyorst/fzf.kak" config %{
+    map global normal <c-p> ': fzf-mode<ret>'
+}
+plug "delapouite/kakoune-buffers" %{
+      map global user b ': enter-user-mode -lock buffers<ret>' -docstring 'buffers (lock)'
+}
+plug "alexherbo2/prelude.kak"
+plug "alexherbo2/connect.kak" %{
+    require-module connect
+}
+plug "alexherbo2/word-select.kak" %{
+    require-module word-select
+    word-select-add-mappings
+}
+plug "alexherbo2/auto-pairs.kak" %{
+    require-module auto-pairs
+    auto-pairs-enable
+}
+plug "alexherbo2/surround.kak" %{
+    require-module surround
+    map -docstring 'Surround' global normal q ': enter-user-mode surround<ret>'
+}
+plug "andreyorst/smarttab.kak" defer smarttab %{
+        set-option global softtabstop 4
+        noexpandtab
+        smarttab
+} config %{
+	hook global WinSetOption filetype=(python|kak|sh) expandtab
+}
+plug "lePerdu/kakboard" %{
+        hook global WinCreate .* %{ kakboard-enable }
+}
+plug "kak-lsp/kak-lsp" do %{
+        #cargo install --locked --force --path .
+        #ln -sf /tmp/kak-lsp/target/debug/kak-lsp ~/.local/bin/
+        evaluate-commands %sh{kak-lsp --kakoune -s $kak_session}
+}
+
+hook global WinSetOption filetype=(go|elixir) %{
+        lsp-enable
+        lsp-auto-hover-enable
+        lsp-auto-signature-help-enable
+}
+
+#set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
+
+hook global WinSetOption filetype=go %{
+        set window indentwidth 0
+        set window formatcmd 'goimports'
+        hook buffer BufWritePost .* %{ go-format -use-goimports }
+}
+
+hook global WinSetOption filetype=elixir %{
+        set window formatcmd 'mix format -'
+        hook buffer BufWritePost .* %{format}
+}
+
+set-face global CurWord default,rgba:50505020
+
+hook global NormalIdle .* %{
+        eval -draft %{ try %{
+                exec <space><a-i>w <a-k>\A\w+\z<ret>
+                add-highlighter -override global/curword regex "\b\Q%val{selection}\E\b" 0:CurWord
+        } catch %{
+                add-highlighter -override global/curword group
+        } }
+}
+
+hook global BufWritePre .* %{exec -draft '%s\h+$<ret>d'}
+
+set global scrolloff 10,10
+set global ui_options ncurses_status_on_top=yes
+
+addhl global/number-lines number-lines -hlcursor
+addhl global/trailing-whitespace regex '\h+$' 0:default,red
+addhl global/matching-brackets show-matching
+addhl global/wrap wrap -word -indent -marker ''
+addhl global/ show-whitespaces -tab '▏' -tabpad ' ' -lf ' ' -spc ' ' -nbsp '·'
+
+set-option global grepcmd 'rg --column'
+set-option global makecmd 'time make'
+
+#map -docstring "comment/uncomment selection (<c-/>)" global normal '<c-/>' ': comment-line<ret>'

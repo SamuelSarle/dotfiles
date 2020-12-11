@@ -9,7 +9,15 @@ xset r rate 350 50
 xset b off
 setxkbmap -layout us
 setxkbmap -option grp:alt_space_toggle us,ua
-xmodmap .xmodmaprc
+
+#caps lock as ctrl+esc
+setxkbmap -option 'caps:ctrl_modifier'
+xcape -e 'Caps_Lock=Escape'
+
+#tab as windows key(mod4)+tab
+xmodmap -e 'keycode 23 = Super_L'
+xmodmap -e 'keycode any = Tab'
+xcape -e 'Super_L=Tab'
 
 xrdb .Xresources
 xsetroot -solid '#444'

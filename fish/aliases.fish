@@ -16,7 +16,7 @@ alias eg 'vim ~/.gitconfig'
 alias et 'vim ~/repos/dotfiles/.tmux.conf'
 alias ev 'vim ~/repos/dotfiles/nvim/init.vim'
 
-#editor
+#editor, vim will be a symlink to whatever
 alias e  'vim'
 alias de 'doas vim'
 
@@ -31,8 +31,8 @@ alias mv 'mv -iv'
 alias rm 'rm -v'
 
 alias t  'tmux'
-alias ta 'tmux attach -t'
-alias tn 'tmux new-session -s'
+alias ta 'tmux new-session -A -s'
+alias tl 'tmux ls'
 
 #power management
 abbr reboot   'doas reboot'
@@ -95,35 +95,5 @@ abbr grhh  'git reset HEAD --hard'
 abbr gs    'git status'
 abbr gst   'git stash'
 
-function kp --description "Kill processes"
-	set -l __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS -m --header='[kill:process]'" | awk '{print $1}')
-	set -l __kp__kc $argv[1]
-
-	if test "x$__kp__pid" != "x"
-		if test "x$argv[1]" != "x"
-			echo $__kp__pid | xargs kill $argv[1]
-		else
-			echo $__kp__pid | xargs kill -9
-		end
-		kp
-	end
-end
-
-function fssh -d "Fuzzy-find ssh host via rg and ssh into it"
-	rg --ignore-case '^host [^*]' ~/.ssh/config | cut -d ' ' -f 2 | fzf | read -l result; and ssh "$result"
-end
-
-function qr --description "QR encode a string"
-	printf "$argv" | curl -F-=\<- qrenco.de
-end
-
-function weather --description "Get weather information for city."
-	if test (count $argv) -eq 1
-		curl "wttr.in/$argv[1]?2qFTn&lang=uk"
-	else
-		curl 'wttr.in/?2qFTn&lang=uk'
-	end
-end
-
-#abbreviations spelling errors
+#abbreviations for spelling errors
 abbr hotp 'htop'
