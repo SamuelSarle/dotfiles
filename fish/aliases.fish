@@ -9,17 +9,6 @@ alias htop 'htop -t'
 alias ..  'cd ..'
 alias ... 'cd ../..'
 
-#edit dotfiles
-alias ea 'vim ~/repos/dotfiles/fish/aliases.fish'
-alias ef 'vim ~/repos/dotfiles/fish/config.fish'
-alias eg 'vim ~/.gitconfig'
-alias et 'vim ~/repos/dotfiles/.tmux.conf'
-alias ev 'vim ~/repos/dotfiles/nvim/init.vim'
-
-#editor, vim will be a symlink to whatever
-alias e  'vim'
-alias de 'doas vim'
-
 #youtube
 alias yt  'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias yt2 'youtube-dl -f 22 -i -o "%(upload_date)s-%(title)s.%(ext)s"'
@@ -33,10 +22,6 @@ alias rm 'rm -v'
 alias t  'tmux'
 alias ta 'tmux new-session -A -s'
 alias tl 'tmux ls'
-
-#power management
-abbr reboot   'doas reboot'
-abbr poweroff 'doas halt -p'
 
 #python
 abbr  py   'python3 -q'
@@ -56,44 +41,6 @@ abbr dcrm  'docker-compose rm'
 abbr dcst  'docker-compose stop'
 abbr dcupd 'docker-compose up -d'
 abbr dcup  'docker-compose up'
-
-#git commands
-abbr g     'git'
-abbr ga    'git add'
-abbr g.    'git add .'
-abbr gaa   'git add --all'
-abbr gb    'git branch'
-abbr gbl   'git blame'
-abbr gc    'git commit -v -m'
-abbr gco   'git checkout'
-abbr gcm   'git checkout master'
-abbr gcd   'git checkout develop'
-abbr gcp   'git cherry-pick'
-abbr gd    'git diff'
-abbr gcl   'git clone --recursive'
-abbr gf    'git fetch'
-abbr gfo   'git fetch origin'
-abbr gfa   'git fetch --all --prune'
-abbr gls   'git ls-tree -r --name-only HEAD'
-abbr gl    'git log --oneline --decorate --color --graph'
-abbr glg   'git log --stat --max-count=10'
-abbr glog  'git log'
-abbr gm    'git merge'
-abbr gp    'git push'
-abbr ggp   'git push origin HEAD'
-abbr gpl   'git pull'
-abbr ggl   'git pull origin HEAD'
-abbr ggpur 'git pull --rebase origin HEAD'
-abbr glum  'git pull upstream master'
-abbr grmv  'git remote rename'
-abbr grrm  'git remote remove'
-abbr grset 'git remote set-url'
-abbr grup  'git remote update'
-abbr grv   'git remote -v'
-abbr grh   'git reset HEAD'
-abbr grhh  'git reset HEAD --hard'
-abbr gs    'git status'
-abbr gst   'git stash'
 
 #abbreviations for spelling errors
 abbr hotp 'htop'
