@@ -10,17 +10,17 @@
   (display-line-numbers-mode 1)
   (show-paren-mode 1)
   (setq show-paren-delay 0)
+  (setq show-paren-when-point-inside-paren t)
+  (smartparens-mode 1)
+  (evil-smartparens-mode 1)
   (global-hl-line-mode 1)
   (rainbow-delimiters-mode 1)
-  (smartparens-mode t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
 (add-hook 'prog-mode-hook #'my-prog-mode)
 
 (set-frame-font "Hack-11" nil t)
 
-;; (setq display-time-24hr-format t)
-;; (setq display-time-day-and-date t)
 (setq display-time-format "%Y-%m-%d (%a) %R")
 (display-time-mode 1)
 
@@ -73,10 +73,6 @@
 	     :config
 	     (load-theme 'modus-vivendi t))
 
-;; (use-package color-theme-modern
-;;   :config
-;;   (load-theme 'lawrence t))
-
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
@@ -107,15 +103,18 @@
  :prefix "SPC"
  :non-normal-prefix "C-SPC"
  "SPC" '(counsel-M-x :which-key "M-x")
+ "a" '(org-agenda :which-key "Org-Agenda")
  "b" '(switch-to-buffer :which-key "Switch buffer")
+ "c" '(org-capture :which-key "Org-Capture")
  "d" '(dired :which-key "Dired")
  "e" '(evil-ex :which-key "Evil Ex")
  "f" '(find-file :which-key "Find file")
  "g" '(magit-status :which-key "Magit")
  "m" '(:ignore t :which-key "Bookmark")
- "ms" '(bookmark-set :which-key "set")
+ "ms" '(bookmark-set :which-key "Set")
  "mo" '(bookmark-jump :which-key "Jump")
- "s" '(save-buffer :which-key "Save buffer"))
+ "s" '(save-buffer :which-key "Save buffer")
+ "k" '(kill-current-buffer :which-key "Kill buffer"))
 
 (use-package evil-collection
   :after evil
@@ -129,6 +128,8 @@
 (use-package evil-nerd-commenter
   :general
   ("M-/" 'evilnc-comment-or-uncomment-lines))
+
+(use-package evil-smartparens)
 
 (use-package expand-region
   :general
@@ -204,7 +205,12 @@
 
 (use-package flycheck)
 (use-package magit)
-(use-package minimap)
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-hide-dotfiles-mode))
 
 (use-package projectile
   :config (projectile-mode)
@@ -216,10 +222,6 @@
   (when (file-directory-p "~/repos")
     (setq projectile-project-search-path '("~/repos")))
   (setq projectile-switch-project-action #'projectile-dired))
-
-(use-package pdf-tools
-  :init
-  (pdf-tools-install))
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
@@ -233,7 +235,10 @@
     :config
     (add-hook 'elixir-mode-hook 'mix-minor-mode)))
 
-(use-package hungry-delete)
+(use-package clojure-mode
+  :config
+  (use-package cider)
+  (use-package clj-refactor))
 
 (defalias 'perl-mode 'cperl-mode)
 
@@ -249,20 +254,44 @@
   (general-define-key
    :states 'insert
    :keymaps 'local
-   "TAB" 'self-insert-command
-   "DEL" 'hungry-delete-backward)
+   "TAB" 'self-insert-command)
+  (define-key cperl-mode-map "{" 'nil)
   (smart-tabs-advice cperl-indent-line cperl-indent-level)
-  (smartparens-mode 0)
+  (smartparens-mode t)
   (smart-tabs-mode-enable)
-  (hungry-delete-mode 1)
   (setq cperl-indent-level 8
-	cperl-electric-parens t
+	;; cperl-electric-parens 0
 	;; 	 cperl-close-paren-offset -4
 	;; 	 cperl-continued-statement-offset 4
 	cperl-tab-always-indent t
 	cperl-indent-parens-as-block t))
 
 (add-hook 'cperl-mode-hook #'my-perl)
+
+(use-package org
+  :config
+
+  (use-package org-bullets
+    :hook (org-mode . org-bullets-mode)
+    :custom
+    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+  (setq org-agenda-files '("~/org/tasks.org"))
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  (setq org-refile-targets
+	'(("archive.org" :maxlevel . 1)
+	  ("tasks.org" :maxlevel . 1)))
+
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")))
+
+   (setq org-capture-templates
+    `(("t" "Task" entry (file+olp "~/org/tasks.org" "Inbox")
+           "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -271,12 +300,14 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(custom-safe-themes
-   '("96c56bd2aab87fd92f2795df76c3582d762a88da5c0e54d30c71562b7bf9c605" "7ea491e912d419e6d4be9a339876293fff5c8d13f6e84e9f75388063b5f794d6" default))
- '(package-selected-packages '(modus-operandi-theme))
+   '("d2db4af7153c5d44cb7a67318891e2692b8bf5ddd70f47ee7a1b2d03ad25fcd9" "a10ca93d065921865932b9d7afae98362ce3c347f43cb0266d025d70bec57af1" "96c56bd2aab87fd92f2795df76c3582d762a88da5c0e54d30c71562b7bf9c605" "7ea491e912d419e6d4be9a339876293fff5c8d13f6e84e9f75388063b5f794d6" default))
+ '(nil nil t)
+ '(org-agenda-files nil)
+ '(package-selected-packages '(modus-operandi-theme)))
+(put 'narrow-to-region 'disabled nil)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ))
-(put 'narrow-to-region 'disabled nil)
+ )

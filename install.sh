@@ -2,9 +2,5 @@
 
 dir="$(pwd)"
 
-ln -s "$dir"/nvim ~/.config/nvim
 ln -s "$dir"/fish ~/.config/fish
-ln -s "$dir"/kak ~/.config/kak
-
-#ln -s "$dir"/sway ~/.config/sway
-#ln -s "$dir"/waybar ~/.config/waybar
+ln -s "$dir"/emacs/init.el ~/.emacs.d/init.el
