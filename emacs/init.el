@@ -3,8 +3,10 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
-(set-fringe-mode 10)
+(set-fringe-mode 0)
 (setq visible-bell t)
+(setq initial-scratch-message nil)
+(toggle-truncate-lines 1)
 
 (defun my-prog-mode ()
   (display-line-numbers-mode 1)
@@ -16,16 +18,12 @@
   (evil-smartparens-mode 1)
   (global-hl-line-mode 1)
   (rainbow-delimiters-mode 1)
+  (display-fill-column-indicator-mode 1)
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
 (add-hook 'prog-mode-hook #'my-prog-mode)
 
-(set-frame-font "Hack-11" nil t)
-
-;; (setq display-time-24hr-format t)
-;; (setq display-time-day-and-date t)
-(setq display-time-format "%Y-%m-%d (%a) %R")
-(display-time-mode 1)
+(set-frame-font "Iosevka Nerd Font-11" nil t)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -43,6 +41,9 @@
               tramp-file-name-regexp))
 (setq tramp-verbose 3)
 (setq tramp-completion-reread-directory-timeout nil)
+(setq tramp-default-method "scp")
+(setq tramp-ssh-controlmaster-options "")
+
 (defadvice projectile-project-root (around ignore-remote first activate)
   (unless (file-remote-p default-directory) ad-do-it))
 
@@ -110,19 +111,20 @@
                     :keymaps '(normal override dired-mode-map)
                     :prefix "SPC"
                     :non-normal-prefix "C-SPC"
+                    "" nil
                     "SPC" '(counsel-M-x :which-key "M-x")
                     "a" '(org-agenda :which-key "Org-Agenda")
-                    "b" '(switch-to-buffer :which-key "Switch buffer")
+                    "b" '(counsel-switch-buffer :which-key "Switch buffer")
                     "c" '(org-capture :which-key "Org-Capture")
                     "d" '(dired :which-key "Dired")
                     "e" '(evil-ex :which-key "Evil Ex")
                     "f" '(find-file :which-key "Find file")
                     "g" '(magit-status :which-key "Magit")
                     "m" '(:ignore t :which-key "Bookmark")
-                    "ms" '(bookmark-set :which-key "set")
+                    "ms" '(bookmark-set :which-key "Set")
                     "mo" '(bookmark-jump :which-key "Jump")
                     "s" '(save-buffer :which-key "Save buffer")
-                    "t" '(neotree-toggle :which-key "Neotree")
+                    "r" '(revert-buffer :which-key "Revert buffer")
                     "k" '(kill-current-buffer :which-key "Kill buffer"))
 
 (use-package evil-collection
@@ -212,9 +214,21 @@
   ([remap describe-key] . helpful-key))
 
 (use-package parinfer-rust-mode
-  :hook '(emacs-lisp-mode clojure-mode)
+  :hook '(emacs-lisp-mode clojure-mode scheme-mode lisp-mode)
   :init
   (setq parinfer-rust-auto-download t))
+
+(use-package lispy
+  :config
+  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'clojure-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'scheme-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1))))
+
+(use-package format-all
+  :general
+  (:states 'normal
+           "SPC =" 'format-all-buffer))
 
 (use-package smartparens)
 
@@ -225,10 +239,13 @@
 (use-package magit)
 
 (use-package dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :hook
+  (dired-mode . dired-hide-dotfiles-mode)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-hide-dotfiles-mode))
+
+(use-package dired-rsync)
 
 (use-package projectile
   :config (projectile-mode)
@@ -245,6 +262,15 @@
   :config
   (counsel-projectile-mode))
 
+(use-package company
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-lsp-cache-candidates t))
+
+(use-package direnv
+ :config
+ (direnv-mode))
+
 (use-package ledger-mode)
 
 (use-package nix-mode)
@@ -259,8 +285,31 @@
 (use-package docker
   :config
   (use-package docker-compose-mode)
-  (use-package docker-tramp)
+  (use-package docker-tramp
+    :config
+    (setq docker-tramp-use-names t))
   (use-package dockerfile-mode))
+
+(push
+ (cons
+  "docker"
+  '((tramp-login-program "docker")
+    (tramp-login-args (("exec" "-it") ("%h") ("/bin/bash")))
+    (tramp-remote-shell "/bin/bash")
+    (tramp-remote-shell-args ("-i") ("-c"))))
+ tramp-methods)
+
+(defadvice tramp-completion-handle-file-name-all-completions
+  (around dotemacs-completion-docker activate)
+  "(tramp-completion-handle-file-name-all-completions \"\" \"/docker:\" returns
+    a list of active Docker container names, followed by colons."
+  (if (equal (ad-get-arg 1) "/docker:")
+      (let* ((dockernames-raw (shell-command-to-string "docker ps | awk '$NF != \"NAMES\" { print $NF \":\" }'"))
+             (dockernames (cl-remove-if-not
+                           #'(lambda (dockerline) (string-match ":$" dockerline))
+                           (split-string dockernames-raw "\n"))))
+        (setq ad-return-value dockernames))
+    ad-do-it))
 
 (use-package elixir-mode
   :config
@@ -271,9 +320,35 @@
 
 (use-package clojure-mode
   :config
-  (add-hook 'clojure-mode-hook (lambda () (smartparens-mode -1)))
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (smartparens-mode -1)
+              (setq nrepl-use-ssh-fallback-for-remote-hosts t)))
   (use-package cider)
   (use-package clj-refactor))
+
+(use-package sly)
+
+(defun lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook 'lsp-format-buffer t t)
+    (add-hook 'before-save-hook 'lsp-organize-imports t t))
+
+(use-package go-mode
+  :config
+  (setq gofmt-command "goimports")
+  (add-hook 'go-mode-hook (lambda () (lsp-go-install-save-hooks)))
+  (add-hook 'before-save-hook 'gofmt-before-save))
+
+(use-package tide)
+(use-package svelte-mode)
+
+(use-package add-node-modules-path
+  :config
+  (add-hook 'svelte-mode-hook #'add-node-modules-path))
+
+(use-package prettier-js
+  :config
+  (add-hook 'svelte-mode-hook #'prettier-js-mode))
 
 (defalias 'perl-mode 'cperl-mode)
 
@@ -282,10 +357,6 @@
   (smart-tabs-insinuate 'cperl))
 
 (defun my-perl ()
-  (general-define-key
-   :states 'normal
-   :keymaps 'local
-   "C-h f" 'cperl-perldoc)
   (general-define-key
    :states 'insert
    :keymaps 'local
@@ -303,14 +374,11 @@
 
 (add-hook 'cperl-mode-hook #'my-perl)
 
-(use-package highlight-indent-guides
-  :config
-  (add-hook 'cperl-mode-hook 'highlight-indent-guides-mode)
-  (setq highlight-indent-guides-method 'bitmap))
-
 (use-package org
+  :hook
+  (org-mode . auto-fill-mode)
   :config
-  (setq org-agenda-files '("~/org/tasks.org"))
+  (setq org-agenda-files '("~/org/main.org"))
   (setq org-agenda-start-with-log-mode t)
   (setq org-edit-src-content-indentation 0)
   (setq org-src-tab-acts-natively t)
@@ -319,31 +387,65 @@
   (org-babel-do-load-languages 'org-babel-load-languages '((ledger . t)))
   (setq org-refile-targets
         '(("archive.org" :maxlevel . 1)
-          ("tasks.org" :maxlevel . 1)))
+          ("main.org" :maxlevel . 1)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")))
+        '((sequence "TODO(t)" "WAIT(w)" "NEXT(n)" "|" "DONE(d!)")))
   (setq org-capture-templates
-        `(("t" "Task" entry (file+olp "~/org/tasks.org" "Inbox")
+        `(("t" "Task" entry (file+olp "~/org/main.org" "Task Inbox")
            "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)))
   (use-package org-bullets
-    :hook (org-mode . org-bullets-mode)
+    :hook
+    (org-mode . org-bullets-mode)
     :custom
     (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●"))))
 
-;; (load "ob-C.el")
-;; (require 'ob-C)
+(use-package yasnippet
+  :config
+  (yas-reload-all)
+  (yas-global-mode 1)
+  (define-key yas-minor-mode-map (kbd "M-z") 'yas-expand))
 
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  '((C . t)
-;;    (ledger . t)))
+(use-package yasnippet-snippets)
+
+(use-package lsp-mode
+  :hook
+  ((go-mode . lsp-deferred)
+   (clojure-mode . lsp-deferred)
+   (elixir-mode . lsp-deferred)
+   (svelte-mode . lsp-deferred))
+  :commands (lsp lsp-deferred))
+
+(setenv "PATH"
+        (concat
+         "/home/s/bin" path-separator
+         "/home/s/.local/bin" path-separator
+         (getenv "PATH")))
+
+(push "/home/s/bin" exec-path)
+(push "/home/s/.local/bin" exec-path)
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
- '(custom-safe-themes
-   '("d2db4af7153c5d44cb7a67318891e2692b8bf5ddd70f47ee7a1b2d03ad25fcd9" "a10ca93d065921865932b9d7afae98362ce3c347f43cb0266d025d70bec57af1" "96c56bd2aab87fd92f2795df76c3582d762a88da5c0e54d30c71562b7bf9c605" "7ea491e912d419e6d4be9a339876293fff5c8d13f6e84e9f75388063b5f794d6" defa))
  '(nil nil t)
- ;; '(package-selected-packages '(modus-operandi-theme)))
- (put 'narrow-to-region 'disabled nil)
- (custom-set-faces))
+ '(prog-mode-hook '(my-prog-mode)))
+(custom-set-faces)
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+(put 'narrow-to-region 'disabled nil)
