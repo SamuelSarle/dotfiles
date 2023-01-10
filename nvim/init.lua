@@ -1,6 +1,8 @@
+pcall(require, "impatient")
 vim.cmd.packadd("packer.nvim")
 require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
+	use("lewis6991/impatient.nvim")
 	use({
 		"bluz71/vim-moonfly-colors",
 		config = function()
@@ -15,12 +17,32 @@ require("packer").startup(function(use)
 	use("nvim-tree/nvim-web-devicons")
 	use("tpope/vim-commentary")
 	use("tpope/vim-fugitive")
+	use({
+		"akinsho/git-conflict.nvim",
+		config = function()
+			require("git-conflict").setup()
+		end,
+	})
 	use("tpope/vim-surround")
 	use("tpope/vim-unimpaired")
+	use("ThePrimeagen/harpoon")
+	use("arkav/lualine-lsp-progress")
+	use({
+		"nvim-lualine/lualine.nvim",
+		config = function()
+			require("lualine").setup({
+				sections = { lualine_c = { "lsp_progress" } },
+				options = { icons_enabled = false, theme = "moonfly" },
+			})
+		end,
+	})
 	use({
 		"ahmedkhalf/project.nvim",
 		config = function()
-			require("project_nvim").setup({})
+			require("project_nvim").setup({
+				detection_methods = { "pattern", "lsp" },
+				scope_chdir = "win",
+			})
 		end,
 	})
 	use({
@@ -129,7 +151,6 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-	vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
@@ -199,11 +220,13 @@ vim.opt.smartcase = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.encoding = "utf-8"
+vim.opt.cursorline = true
+vim.opt.timeout = false
 vim.opt.list = true
 vim.opt.listchars = { eol = "¬", tab = "› ", trail = "~", extends = ">", nbsp = "•" }
 
 local autocmd = vim.api.nvim_create_autocmd
-autocmd({ "BufWritePre" }, {
+autocmd("BufWritePre", {
 	pattern = "*",
 	command = [[%s/\s\+$//e]],
 })
@@ -213,11 +236,6 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>s", vim.cmd.w)
 vim.keymap.set({ "n", "v" }, "j", "gj")
 vim.keymap.set({ "n", "v" }, "k", "gk")
-
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
 
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
@@ -229,10 +247,51 @@ vim.keymap.set("n", "<leader>g", vim.cmd.Git)
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<leader>t", vim.cmd.NvimTreeToggle)
 
+vim.keymap.set("n", "q:", ":q")
+
 local telescope = require("telescope.builtin")
 vim.keymap.set("n", "<leader>pf", telescope.find_files)
+vim.keymap.set("n", "<leader>pr", function()
+	telescope.find_files({ cwd = vim.fn.expand("~/repos/") })
+end)
 vim.keymap.set("n", "<C-p>", telescope.git_files)
 vim.keymap.set("n", "<leader>pg", telescope.live_grep)
 vim.keymap.set("n", "<leader>pp", require("telescope").extensions.projects.projects)
 vim.keymap.set("n", "<leader>pb", telescope.buffers)
 vim.keymap.set("n", "<leader>ph", telescope.command_history)
+
+vim.keymap.set("n", "q:", ":q")
+
+local testaug = vim.api.nvim_create_augroup("TestMaps", { clear = true })
+autocmd("Filetype", {
+	group = testaug,
+	pattern = "go",
+	callback = function()
+		local opts = { buffer = true }
+		vim.keymap.set("n", ",ta", ":!go test -cover ./...<CR>", opts)
+		vim.keymap.set("n", ",tp", function()
+			vim.cmd("!go test -cover " .. vim.fn.expand("%:p:h") .. "/")
+		end, opts)
+	end,
+})
+
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+local term = require("harpoon.term")
+vim.keymap.set("n", "<leader>a", mark.add_file)
+vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+vim.keymap.set("n", "<A-t>", function()
+	term.gotoTerminal(1)
+end)
+vim.keymap.set({ "n", "t" }, "<A-j>", function()
+	ui.nav_file(1)
+end)
+vim.keymap.set({ "n", "t" }, "<A-k>", function()
+	ui.nav_file(2)
+end)
+vim.keymap.set({ "n", "t" }, "<A-l>", function()
+	ui.nav_file(3)
+end)
+vim.keymap.set({ "n", "t" }, "<A-;>", function()
+	ui.nav_file(4)
+end)
