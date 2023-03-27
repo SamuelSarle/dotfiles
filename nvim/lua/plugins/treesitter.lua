@@ -1,0 +1,16 @@
+return {
+	"nvim-treesitter/nvim-treesitter",
+	build = ":TSUpdate",
+	cmd = { "TSInstall", "TSBufEnable", "TSBufDisable" },
+	config = function()
+		require("nvim-treesitter.configs").setup({
+			ensure_installed = { "help", "javascript", "typescript", "c", "lua", "nix", "go", "svelte", "rust" },
+			sync_install = false,
+			auto_install = false,
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false,
+			},
+		})
+	end,
+}
