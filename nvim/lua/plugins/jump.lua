@@ -11,9 +11,21 @@ return {
 		},
 		keys = {
 			{
-				"<A-p>",
+				"<A-g>",
 				function()
 					require("portal.builtin").grapple.tunnel_forward()
+				end,
+			},
+			{
+				"<A-i>",
+				function()
+					require("portal.builtin").jumplist.tunnel_forward()
+				end,
+			},
+			{
+				"<A-o>",
+				function()
+					require("portal.builtin").jumplist.tunnel_backward()
 				end,
 			},
 			{

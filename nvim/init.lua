@@ -64,8 +64,6 @@ vim.keymap.set({ "n", "x" }, "<C-v>", "v")
 
 vim.keymap.set("n", "q:", ":q")
 
-vim.keymap.set("n", "q:", ":q")
-
 local testaug = vim.api.nvim_create_augroup("TestMaps", { clear = true })
 autocmd("Filetype", {
 	group = testaug,
