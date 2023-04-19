@@ -74,12 +74,6 @@ return {
 				end,
 			},
 			{
-				"<A-r>",
-				function()
-					require("grapple").reset()
-				end,
-			},
-			{
 				"<A-q>",
 				function()
 					require("grapple").cycle_forward()

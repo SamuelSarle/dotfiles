@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", { defaults = { lazy = true } })
 
-vim.cmd.colorscheme("github_dark_default")
+vim.cmd.colorscheme("darkrose")
 
 vim.opt.updatetime = 500
 vim.opt.termguicolors = true
@@ -26,6 +26,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = false
 vim.opt.smartindent = true
+vim.opt.copyindent = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undolevels = 5000
@@ -74,7 +75,7 @@ autocmd("Filetype", {
 		vim.keymap.set(
 			"n",
 			",tc",
-			":!go test -coverprofile=c.out ./... && go tool cover -html=c.out && unlink c.out",
+			":!go test -coverprofile=c.out ./... && go tool cover -html=c.out && unlink c.out<CR>",
 			opts
 		)
 		vim.keymap.set("n", ",tp", function()
