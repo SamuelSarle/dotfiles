@@ -12,6 +12,7 @@ return {
 	config = function()
 		local lsp = require("lsp-zero")
 		lsp.preset("recommended")
+		lsp.skip_server_setup({ "rust_analyzer" })
 		lsp.ensure_installed({
 			"tsserver",
 			"eslint",
@@ -19,6 +20,7 @@ return {
 			"gopls",
 			"svelte",
 			"tailwindcss",
+			"rust_analyzer",
 		})
 		lsp.set_preferences({
 			suggest_lsp_servers = false,
@@ -38,8 +40,8 @@ return {
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 			vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
 			vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
@@ -52,8 +54,8 @@ return {
 					callback = function()
 						vim.lsp.buf.format({
 							bufnr = bufnr,
-							filter = function(client)
-								return client.name == "null-ls"
+							filter = function(cl)
+								return cl.name == "null-ls"
 							end,
 						})
 					end,
@@ -71,9 +73,11 @@ return {
 			on_attach = null_opts.on_attach,
 			sources = {
 				require("null-ls").builtins.formatting.stylua,
+				require("null-ls").builtins.diagnostics.golangci_lint,
 				require("null-ls").builtins.formatting.gofumpt,
 				require("null-ls").builtins.formatting.golines,
-				require("null-ls").builtins.formatting.goimports,
+				require("null-ls").builtins.formatting.goimports_reviser,
+				require("null-ls").builtins.formatting.rustfmt,
 				require("null-ls").builtins.formatting.prettierd.with({ extra_filetypes = { "svelte" } }),
 			},
 		})

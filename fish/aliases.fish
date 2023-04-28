@@ -10,9 +10,11 @@ alias ..  'cd ..'
 alias ... 'cd ../..'
 
 #youtube
-alias yt  'youtube-dl -i -o "%(upload_date)s-%(title)s.%(ext)s"'
-alias yt2 'youtube-dl -f 22 -i -o "%(upload_date)s-%(title)s.%(ext)s"'
+alias yt  'yt-dlp -i -o "%(upload_date)s-%(title)s.%(ext)s"'
+alias yt2 'yt-dlp -f 22 -i -o "%(upload_date)s-%(title)s.%(ext)s"'
 alias yta 'yt -x -f bestaudio/best'
+
+alias mpva 'mpv --no-video'
 
 #confirm overwriting unless -f is specified, more verbose
 alias cp 'cp -iv'

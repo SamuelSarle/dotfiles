@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", { defaults = { lazy = true } })
 
-vim.cmd.colorscheme("darkrose")
+vim.cmd.colorscheme("github_dark_default")
 
 vim.opt.updatetime = 500
 vim.opt.termguicolors = true
@@ -64,6 +64,9 @@ vim.keymap.set({ "n", "x" }, "v", "<C-v>")
 vim.keymap.set({ "n", "x" }, "<C-v>", "v")
 
 vim.keymap.set("n", "q:", ":q")
+
+vim.keymap.set("n", "gh", "<cmd>diffget //2<CR>")
+vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>")
 
 local testaug = vim.api.nvim_create_augroup("TestMaps", { clear = true })
 autocmd("Filetype", {
