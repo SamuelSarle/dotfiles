@@ -38,6 +38,7 @@ return {
 			{ "<leader>pp", require("telescope").extensions.projects.projects },
 			{ "<leader>pb", telescope.buffers },
 			{ "<leader>ph", telescope.command_history },
+			{ "<leader>pq", telescope.quickfix },
 		}
 	end,
 	dependencies = {
