@@ -3,13 +3,20 @@ return {
 	tag = "0.1.1",
 	config = function()
 		local tl = require("telescope")
+		local actions = require("telescope.actions")
 		local trouble = require("trouble.providers.telescope")
 
 		tl.setup({
 			defaults = {
 				mappings = {
-					i = { ["<c-t>"] = trouble.open_with_trouble },
-					n = { ["<c-t>"] = trouble.open_with_trouble },
+					i = {
+						["<c-t>"] = trouble.open_with_trouble,
+						["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					},
+					n = {
+						["<c-t>"] = trouble.open_with_trouble,
+						["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					},
 				},
 			},
 		})
