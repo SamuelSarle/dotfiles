@@ -4,16 +4,14 @@ set -Ux HOME     /home/s/
 set -gx MANPAGER less
 set -gx EDITOR   nvim
 
-set -e fish_user_paths
-set -U fish_user_paths ~/bin ~/.local/bin ~/go/bin
+# set -e fish_user_paths
+set -U fish_user_paths ~/bin ~/.local/bin ~/go/bin /opt/local/bin /opt/homebrew/bin
 
 set -gx LC_ALL "en_US.UTF-8"
 
 set -U fish_greeting ""
 
-direnv hook fish | source
-
-set -U pisces_only_insert_at_eol 1
+#direnv hook fish | source
 
 set -Ux  FZF_DEFAULT_OPTS '--height=70% --min-height=20 --reverse --cycle'
 fzf_configure_bindings --git_log=\e\ch

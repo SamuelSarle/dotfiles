@@ -44,6 +44,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"folke/trouble.nvim",
+		"ahmedkhalf/project.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 }
