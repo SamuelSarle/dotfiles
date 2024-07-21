@@ -21,9 +21,7 @@ alias cp 'cp -iv'
 alias mv 'mv -iv'
 alias rm 'rm -v'
 
-alias t  'tmux'
-alias ta 'tmux new-session -A -s'
-alias tl 'tmux ls'
+abbr v 'nvim'
 
 #python
 abbr  py   'python3 -q'
@@ -43,6 +41,22 @@ abbr dcrm  'docker compose rm'
 abbr dcst  'docker compose stop'
 abbr dcupd 'docker compose up -d'
 abbr dcup  'docker compose up'
+
+# Git
+abbr g "git"
+abbr ga "git add"
+abbr gcm "git commit -m"
+abbr gco "git checkout"
+abbr gcomp "git checkout master && git pull"
+abbr gl "git log"
+abbr gp "git pull"
+abbr gs "git status"
+
+# Kubernetes
+abbr k 'kubectl'
+abbr kctx 'kubectx'
+abbr kctxr 'kubectx -u'
+abbr kns 'kubens'
 
 #abbreviations for spelling errors
 abbr hotp 'htop'

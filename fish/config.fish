@@ -5,7 +5,7 @@ set -gx MANPAGER less
 set -gx EDITOR   nvim
 
 # set -e fish_user_paths
-set -U fish_user_paths ~/bin ~/.local/bin ~/go/bin /opt/local/bin /opt/homebrew/bin
+set -U fish_user_paths ~/bin ~/.local/bin ~/go/bin ~/.cargo/bin ~/.pub-cache/bin /opt/homebrew/bin /opt/homebrew/opt/curl/bin
 
 set -gx LC_ALL "en_US.UTF-8"
 

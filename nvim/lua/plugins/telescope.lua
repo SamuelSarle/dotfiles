@@ -1,50 +1,61 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.1",
+	-- tag = "0.1.6",
+	branch = "0.1.x",
+	cmd = { "Telescope" },
 	config = function()
 		local tl = require("telescope")
 		local actions = require("telescope.actions")
-		local trouble = require("trouble.providers.telescope")
 
 		tl.setup({
 			defaults = {
 				mappings = {
 					i = {
-						["<c-t>"] = trouble.open_with_trouble,
+						["<esc>"] = actions.close,
 						["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 					},
 					n = {
-						["<c-t>"] = trouble.open_with_trouble,
 						["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 					},
+				},
+			},
+			extensions = {
+				smart_open = {
+					match_algorithm = "fzf",
 				},
 			},
 		})
 		tl.load_extension("projects")
 		tl.load_extension("fzf")
+		tl.load_extension("recent_files")
+		tl.load_extension("smart_open")
 	end,
 	keys = function()
 		local telescope = require("telescope.builtin")
 		return {
-			{ "<leader>pf", telescope.find_files },
 			{
-				"<leader>pr",
+				"<leader><leader>",
 				function()
-					telescope.find_files({ cwd = vim.fn.expand("~/repos/") })
+					require("telescope").extensions.smart_open.smart_open({ filename_first = false })
 				end,
 			},
+			{ "<leader>pf", telescope.find_files },
 			{ "<C-p>", telescope.git_files },
+			{ "<leader>b", telescope.buffers },
 			{ "<leader>pg", telescope.live_grep },
 			{ "<leader>pp", require("telescope").extensions.projects.projects },
-			{ "<leader>pb", telescope.buffers },
+			{ "<leader>pr", require("telescope").extensions.recent_files.pick },
 			{ "<leader>ph", telescope.command_history },
 			{ "<leader>pq", telescope.quickfix },
+			{ "<leader>pt", telescope.treesitter },
+			{ "<leader>pc", telescope.colorscheme },
 		}
 	end,
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		"folke/trouble.nvim",
 		"ahmedkhalf/project.nvim",
+		"smartpde/telescope-recent-files",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		{ "danielfalk/smart-open.nvim", dependencies = { "kkharji/sqlite.lua" } },
 	},
 }

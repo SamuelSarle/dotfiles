@@ -1,11 +1,20 @@
 return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
-	config = function()
-		require("copilot").setup({
-			suggestion = {
-				auto_trigger = true,
-			},
-		})
-	end,
+	event = "InsertEnter",
+	keys = {
+		{ "<leader>c", ":Copilot! attach<CR>" },
+	},
+	opts = {
+		suggestion = {
+			auto_trigger = true,
+		},
+		filetypes = {
+			javascript = true,
+			typescript = true,
+			lua = true,
+			go = true,
+			["*"] = false,
+		},
+	},
 }

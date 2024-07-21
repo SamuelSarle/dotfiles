@@ -1,91 +1,64 @@
 return {
 	{
-		"cbochs/portal.nvim",
-		dependencies = {
-			"cbochs/grapple.nvim",
-		},
+		"folke/flash.nvim",
 		opts = {
-			window_options = {
-				height = 5,
+			label = {
+				uppercase = false,
+				exclude = "jJ",
+			},
+			jump = {
+				autojump = true,
 			},
 		},
 		keys = {
+			"f",
+			"F",
+			"t",
+			"T",
 			{
-				"<A-g>",
+				"s",
+				mode = { "n", "x", "o" },
 				function()
-					require("portal.builtin").grapple.tunnel_forward()
+					require("flash").jump()
 				end,
+				desc = "Flash",
 			},
 			{
-				"<A-i>",
+				"S",
+				mode = { "n", "x", "o" },
 				function()
-					require("portal.builtin").jumplist.tunnel_forward()
+					require("flash").treesitter()
 				end,
+				desc = "Flash Treesitter",
 			},
 			{
-				"<A-o>",
+				"r",
+				mode = "o",
 				function()
-					require("portal.builtin").jumplist.tunnel_backward()
+					require("flash").remote()
 				end,
+				desc = "Remote Flash",
 			},
 			{
-				"<A-c>",
+				"R",
+				mode = { "o", "x" },
 				function()
-					require("portal.builtin").changelist.tunnel_forward()
+					require("flash").treesitter_search()
 				end,
+				desc = "Treesitter Search",
 			},
 		},
 	},
 	{
-		"cbochs/grapple.nvim",
+		"otavioschwanck/arrow.nvim",
+		keys = { ";", "m" },
 		opts = {
-			scope = "global",
+			show_icons = true,
+			leader_key = ";",
+			buffer_leader_key = "m",
+			save_path = function()
+				return vim.fn.stdpath("cache") .. "/arrow"
+			end,
 		},
-		keys = {
-			{ "<C-e>", "<cmd>GrapplePopup tags<cr>" },
-			{
-				"<leader>a",
-				function()
-					require("grapple").toggle()
-				end,
-			},
-			{
-				"<A-j>",
-				function()
-					require("grapple").select({ key = 1 })
-				end,
-			},
-			{
-				"<A-k>",
-				function()
-					require("grapple").select({ key = 2 })
-				end,
-			},
-			{
-				"<A-l>",
-				function()
-					require("grapple").select({ key = 3 })
-				end,
-			},
-			{
-				"<A-;>",
-				function()
-					require("grapple").select({ key = 4 })
-				end,
-			},
-			{
-				"<A-q>",
-				function()
-					require("grapple").cycle_forward()
-				end,
-			},
-			{
-				"<A-Q>",
-				function()
-					require("grapple").cycle_backward()
-				end,
-			},
-		},
-		dependencies = { "nvim-lua/plenary.nvim" },
 	},
 }
