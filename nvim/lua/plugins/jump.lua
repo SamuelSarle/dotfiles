@@ -56,6 +56,7 @@ return {
 			show_icons = true,
 			leader_key = ";",
 			buffer_leader_key = "m",
+			global_bookmarks = true,
 			save_path = function()
 				return vim.fn.stdpath("cache") .. "/arrow"
 			end,

@@ -1,5 +1,3 @@
-fish/completions/
-fish/functions/
-fish/conf.d/
-fish/fish_variables
-fish/fishd.tmp.*
+nushell/*
+!nushell/config.nu
+!nushell/env.nu

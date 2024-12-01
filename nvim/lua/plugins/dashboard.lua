@@ -50,7 +50,7 @@ return {
 			button("p", "  Projects", ":Telescope projects<cr>"),
 			button("r", "  Recents", ":Telescope recent_files pick<cr>"),
 			button("g", "󰈞  Find Text", ":Telescope live_grep<cr>"),
-			button("d", "  Dotfiles", ":cd ~/repos/dotfiles | Telescope git_files<cr>"),
+			button("d", "  Dotfiles", ":cd ~/Projects/dotfiles | Telescope git_files<cr>"),
 			button("u", "󰊳  Update", ":Lazy update<cr>"),
 			button("l", "󰒲  Lazy", ":Lazy<cr>"),
 			button("m", "󱌣  Mason", ":Mason<cr>"),

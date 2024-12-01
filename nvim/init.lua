@@ -46,6 +46,8 @@ vim.opt.timeout = false
 vim.opt.list = true
 vim.opt.listchars = { eol = "¬", tab = "› ", trail = "~", extends = ">", nbsp = "•" }
 vim.opt.jumpoptions = "stack,view"
+vim.opt.guicursor = "n-v-c-sm:blinkon1,i-ci-ve:ver25,r-cr-o:hor20"
+vim.opt.laststatus = 3
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufWritePre", {
