@@ -2,9 +2,9 @@ return {
 	"stevearc/oil.nvim",
 	opts = {},
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	lazy = false,
 	cmd = { "Oil" },
+	event = "VimEnter",
 	keys = {
-		{ "<leader>d", ":Oil<CR>" },
+		{ "<leader>d", "<cmd>Oil<cr>" },
 	},
 }

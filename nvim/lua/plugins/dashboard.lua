@@ -46,15 +46,15 @@ return {
 		end
 
 		local buttons = {
-			button("n", "  New file", ":ene<cr>"),
-			button("p", "  Projects", ":Telescope projects<cr>"),
-			button("r", "  Recents", ":Telescope recent_files pick<cr>"),
-			button("g", "󰈞  Find Text", ":Telescope live_grep<cr>"),
-			button("d", "  Dotfiles", ":cd ~/Projects/dotfiles | Telescope git_files<cr>"),
-			button("u", "󰊳  Update", ":Lazy update<cr>"),
-			button("l", "󰒲  Lazy", ":Lazy<cr>"),
-			button("m", "󱌣  Mason", ":Mason<cr>"),
-			button("q", "  Quit", ":qa!<cr>"),
+			button("n", "  New file", "<cmd>ene<cr>"),
+			button("p", "  Projects", "<cmd>lua Snacks.picker.projects()<cr>"),
+			button("r", "  Recents", "<cmd>lua Snacks.picker.recent()<cr>"),
+			button("g", "󰈞  Find Text", "<cmd>lua Snacks.picker.grep()<cr>"),
+			button("d", "  Dotfiles", "<cmd>lua Snacks.picker.files({ cwd = '~/Projects/dotfiles' })<cr>"),
+			button("u", "󰊳  Update", "<cmd>Lazy update<cr>"),
+			button("l", "󰒲  Lazy", "<cmd>Lazy<cr>"),
+			button("m", "󱌣  Mason", "<cmd>Mason<cr>"),
+			button("q", "  Quit", "<cmd>qa!<cr>"),
 		}
 
 		dashboard.section.footer.opts.hl = "Comment"

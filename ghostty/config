@@ -2,18 +2,23 @@ font-family = FiraCode Nerd Font
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
-font-size = 14
+font-size = 13
 font-thicken = true
 
-minimum-contrast = 1.3
-theme = light:Material, dark:MaterialDarker
-background = #101010
+window-save-state = always
+minimum-contrast = 1.1
+theme = dark:Tomorrow Night Bright, light:Tomorrow
 background-blur-radius = 30
 background-opacity = 0.8
+
+macos-titlebar-style = native
+# broken for new tabs?:
+# macos-titlebar-style = transparent
 
 cursor-style = block
 cursor-style-blink = true
 
+macos-option-as-alt = left
 keybind = cmd+z=toggle_split_zoom
 
 command = /opt/homebrew/bin/nu -l

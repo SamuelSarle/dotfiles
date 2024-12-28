@@ -1,19 +1,21 @@
 vim.g.mapleader = " "
 
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
 end
 vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup("plugins", { defaults = { lazy = true } })
 
 vim.opt.updatetime = 500
 vim.opt.termguicolors = true
@@ -48,6 +50,7 @@ vim.opt.listchars = { eol = "¬", tab = "› ", trail = "~", extends = ">", nbsp
 vim.opt.jumpoptions = "stack,view"
 vim.opt.guicursor = "n-v-c-sm:blinkon1,i-ci-ve:ver25,r-cr-o:hor20"
 vim.opt.laststatus = 3
+vim.opt.lazyredraw = true
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufWritePre", {
@@ -69,3 +72,13 @@ vim.keymap.set("n", "q:", ":q")
 
 vim.keymap.set("n", "gh", "<cmd>diffget //2<CR>")
 vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>")
+
+require("lazy").setup({
+	defaults = { lazy = true },
+	spec = { { import = "plugins" } },
+	install = { colorscheme = { "my-zenwritten" } },
+	ui = { border = "single" },
+	-- checker = { enabled = true },
+})
+
+vim.cmd.colorscheme("my-zenwritten")

@@ -25,11 +25,6 @@ end
 
 return {
 	{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v4.x",
-		config = false,
-	},
-	{
 		"neovim/nvim-lspconfig",
 		cmd = { "LspInfo", "LspInstall", "LspStart" },
 		event = { "BufReadPost", "BufNewFile" },
@@ -39,14 +34,6 @@ return {
 			{ "williamboman/mason-lspconfig.nvim" },
 		},
 		config = function()
-			-- local lsp_zero = require("lsp-zero")
-			-- lsp_zero.extend_lspconfig()
-			-- lsp_zero.set_sign_icons({
-			-- 	error = "✘",
-			-- 	warn = "▲",
-			-- 	hint = "⚑",
-			-- 	info = "»",
-			-- })
 			local lspconfig_defaults = require("lspconfig").util.default_config
 			lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 				"force",
@@ -70,19 +57,31 @@ return {
 				callback = function(event)
 					local opts = { buffer = event.buf, remap = false }
 
-					-- see :help lsp-zero-keybindings
-					-- to learn the available actions
-					-- local opts = { buffer = bufnr, remap = false }
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 					vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts)
 					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-					vim.keymap.set("n", "<leader>ps", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+					-- vim.keymap.set("n", "<leader>ps", "<cmd>Telescope lsp_document_symbols<cr>", opts)
 					vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
 					vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("LspProgress", {
+				---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+				callback = function(ev)
+					local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+					vim.notify(vim.lsp.status(), "info", {
+						id = "lsp_progress",
+						title = "LSP Progress",
+						opts = function(notif)
+							notif.icon = ev.data.params.value.kind == "end" and " "
+								or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+						end,
+					})
 				end,
 			})
 
@@ -99,6 +98,8 @@ return {
 					"rust_analyzer",
 					"elixirls",
 					"lua_ls",
+					"solargraph",
+					"ruff",
 				},
 				automatic_installation = { exclude = { "rust_analyzer" } },
 				handlers = {
