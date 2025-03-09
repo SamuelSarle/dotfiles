@@ -21,6 +21,6 @@ cursor-style-blink = true
 macos-option-as-alt = left
 keybind = cmd+z=toggle_split_zoom
 
-command = /opt/homebrew/bin/nu -l
+command = /opt/homebrew/bin/fish -l
 
 auto-update = off
