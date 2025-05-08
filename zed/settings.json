@@ -1,0 +1,48 @@
+{
+	"agent": {
+		"version": "2",
+		"default_model": {
+			"provider": "anthropic",
+			"model": "claude-3-7-sonnet-latest"
+		}
+	},
+
+	"theme": {
+		"mode": "system",
+		"dark": "macOS Classic Dark",
+		"light": "macOS Classic Light"
+	},
+	"buffer_font_size": 13,
+	"ui_font_size": 13,
+	"ui_font_family": "DepartureMono Nerd Font Mono",
+	"buffer_font_family": "DepartureMono Nerd Font Mono",
+	"active_pane_modifiers": {
+		"inactive_opacity": 0.7
+	},
+
+	"vim_mode": true,
+	"vim": {
+		"use_multiline_find": true,
+		"use_smartcase_find": true
+	},
+	"use_smartcase_search": true,
+
+	"features": { "edit_prediction_provider": "none" },
+	"hard_tabs": true,
+	"soft_wrap": "editor_width",
+	"relative_line_numbers": true,
+	"terminal": {
+		"shell": {
+			"program": "/opt/homebrew/bin/fish"
+		}
+	},
+
+	// disable some defaults
+	"collaboration_panel": { "button": false },
+	"tab_bar": { "show": false },
+	// "toolbar": { "quick_actions": true },
+	"telemetry": { "diagnostics": false, "metrics": false },
+	"auto_update": false,
+	"gutter": { "folds": false },
+	"show_user_picture": false
+}

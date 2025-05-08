@@ -29,44 +29,45 @@ return {
 		cmd = { "LspInfo", "LspInstall", "LspStart" },
 		event = { "BufReadPost", "BufNewFile" },
 		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "williamboman/mason.nvim", cmd = { "Mason" }, opts = { ui = { border = "rounded" } } },
 			{ "williamboman/mason-lspconfig.nvim" },
 		},
 		config = function()
-			local lspconfig_defaults = require("lspconfig").util.default_config
-			lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-				"force",
-				lspconfig_defaults.capabilities,
-				require("cmp_nvim_lsp").default_capabilities()
-			)
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-				width = 40,
-				border = "single",
-			})
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-				border = "single",
-			})
 			vim.diagnostic.config({
-				virtual_text = true,
-				float = { border = "rounded" },
+				virtual_text = {
+					virt_text_pos = "eol_right_align",
+				},
+				severity_sort = true,
+				-- virtual_lines = { current_line = true },
 			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
 				callback = function(event)
-					local opts = { buffer = event.buf, remap = false }
+					local function map(mode, l, r, opts)
+						opts = opts or {}
+						opts.buffer = event.buf
+						opts.remap = false
+						vim.keymap.set(mode, l, r, opts)
+					end
 
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-					vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, opts)
-					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-					-- vim.keymap.set("n", "<leader>ps", "<cmd>Telescope lsp_document_symbols<cr>", opts)
-					vim.keymap.set("n", "<leader>ws", vim.lsp.buf.workspace_symbol, opts)
-					vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
-					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-					vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+					map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+					map("n", "gD", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+					map("n", "<leader>ws", vim.lsp.buf.workspace_symbol, { desc = "Search for workspace symbol" })
+					map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open diagnostic" })
+					-- map("n", "<leader>e", function()
+					-- 	local config = vim.diagnostic.config()
+					-- 	local virtual_lines = config.virtual_lines
+					--
+					-- 	-- Check if virtual_lines is a table with current_line property
+					-- 	local enabled = type(virtual_lines) == "table" and virtual_lines.current_line
+					--
+					-- 	if enabled then
+					-- 		vim.diagnostic.config({ virtual_lines = false })
+					-- 	else
+					-- 		vim.diagnostic.config({ virtual_lines = { current_line = true } })
+					-- 	end
+					-- end, { desc = "Open diagnostic" })
 				end,
 			})
 

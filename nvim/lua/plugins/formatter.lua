@@ -2,8 +2,6 @@ return {
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
-		---@module "conform"
-		---@type conform.setupOpts
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },

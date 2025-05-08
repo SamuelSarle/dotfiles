@@ -10,7 +10,7 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>t", vim.cmd.NvimTreeToggle },
+		{ "<leader>t", vim.cmd.NvimTreeToggle, desc = "Toggle NvimTree" },
 	},
 	dependencies = { { "nvim-tree/nvim-web-devicons", lazy = false } },
 }

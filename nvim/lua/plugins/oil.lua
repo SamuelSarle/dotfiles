@@ -5,6 +5,6 @@ return {
 	cmd = { "Oil" },
 	event = "VimEnter",
 	keys = {
-		{ "<leader>d", "<cmd>Oil<cr>" },
+		{ "<leader>d", "<cmd>Oil<cr>", desc = "Open oil" },
 	},
 }

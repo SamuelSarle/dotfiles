@@ -19,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.opt.updatetime = 500
 vim.opt.termguicolors = true
-vim.opt.nu = true
+vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -48,9 +48,11 @@ vim.opt.timeout = false
 vim.opt.list = true
 vim.opt.listchars = { eol = "¬", tab = "› ", trail = "~", extends = ">", nbsp = "•" }
 vim.opt.jumpoptions = "stack,view"
-vim.opt.guicursor = "n-v-c-sm:blinkon1,i-ci-ve:ver25,r-cr-o:hor20"
+vim.opt.guicursor = "n-v-c-sm-t:block-blinkon500-blinkoff500-Cursor/lCursor,i-ci-ve:ver25-blinkon500-blinkoff500"
 vim.opt.laststatus = 3
 vim.opt.lazyredraw = true
+vim.opt.winborder = "single"
+vim.opt.conceallevel = 2
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufWritePre", {
@@ -58,12 +60,12 @@ autocmd("BufWritePre", {
 	command = [[%s/\s\+$//e]],
 })
 
-vim.keymap.set("n", "<leader>s", vim.cmd.w)
+vim.keymap.set("n", "<leader>s", vim.cmd.w, { desc = "Write buffer" })
 vim.keymap.set({ "n", "v" }, "j", "gj")
 vim.keymap.set({ "n", "v" }, "k", "gk")
 
-vim.keymap.set({ "n", "v" }, "<leader>p", '"+p')
-vim.keymap.set({ "n", "v" }, "<leader>y", '"+y')
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
 
 vim.keymap.set({ "n", "x" }, "v", "<C-v>")
 vim.keymap.set({ "n", "x" }, "<C-v>", "v")
@@ -76,9 +78,27 @@ vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>")
 require("lazy").setup({
 	defaults = { lazy = true },
 	spec = { { import = "plugins" } },
-	install = { colorscheme = { "my-zenwritten" } },
 	ui = { border = "single" },
+	-- install = { colorscheme = { "carbonfox" } },
 	-- checker = { enabled = true },
 })
 
-vim.cmd.colorscheme("my-zenwritten")
+local function set_colorscheme()
+	require("nightfox")
+
+	if vim.o.background == "light" then
+		vim.cmd.colorscheme("dayfox")
+		return
+	end
+	if vim.o.background == "dark" then
+		vim.cmd.colorscheme("carbonfox")
+		return
+	end
+end
+
+local colorgroup = vim.api.nvim_create_augroup("colorgroup", { clear = true })
+vim.api.nvim_create_autocmd("OptionSet", {
+	pattern = "background",
+	group = colorgroup,
+	callback = set_colorscheme,
+})

@@ -1,22 +1,27 @@
-font-family = FiraCode Nerd Font
+#font-family = FiraCode Nerd Font
+font-family = DepartureMono Nerd Font
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
-font-size = 13
+font-size = 12
 font-thicken = true
 
 window-save-state = always
 minimum-contrast = 1.1
-theme = dark:Tomorrow Night Bright, light:Tomorrow
+#theme = dark:Tomorrow Night Bright, light:Tomorrow
+theme = dark:zenbones_dark, light:zenbones_light
+#theme = dark:carbonfox, light:dayfox
 background-blur-radius = 30
-background-opacity = 0.8
+background-opacity = 0.9
 
 macos-titlebar-style = native
-# broken for new tabs?:
-# macos-titlebar-style = transparent
+# TODO: broken for new tabs?:
+macos-titlebar-style = transparent
 
 cursor-style = block
 cursor-style-blink = true
+# TODO: fish shell doesn't set block cursor for some reason:
+shell-integration-features = no-cursor
 
 macos-option-as-alt = left
 keybind = cmd+z=toggle_split_zoom

@@ -1,0 +1,56 @@
+[
+	{
+		"context": "Workspace",
+		"bindings": {}
+	},
+	{
+		"context": "Editor",
+		"bindings": {}
+	},
+	{
+		"context": "Editor && VimControl && !VimWaiting && !menu",
+		"bindings": {
+			"space d": "diagnostics::Deploy",
+			"space b": "tab_switcher::Toggle",
+			"space p": "file_finder::Toggle"
+		}
+	},
+	{
+		"context": "Dock || Terminal || Editor",
+		"bindings": {
+			"ctrl-h": "workspace::ActivatePaneLeft",
+			"ctrl-j": "workspace::ActivatePaneDown",
+			"ctrl-k": "workspace::ActivatePaneUp",
+			"ctrl-l": "workspace::ActivatePaneRight"
+		}
+	},
+	{
+		"context": "Editor && vim_mode == normal",
+		"bindings": {
+			"space s": "workspace::Save",
+			"j": ["vim::Down", { "display_lines": true }],
+			"k": ["vim::Up", { "display_lines": true }]
+		}
+	},
+	{
+		"context": "vim_mode == normal || vim_mode == visual",
+		"bindings": {
+			"s": "vim::PushSneak",
+			"shift-s": "vim::PushSneakBackward"
+		}
+	},
+	{
+		"context": "vim_mode == normal",
+		"bindings": {
+			"ys": "vim::PushAddSurrounds",
+			"ds": "vim::PushDeleteSurrounds",
+			"cs": "vim::PushChangeSurrounds"
+		}
+	},
+	{
+		"context": "Terminal",
+		"bindings": {
+			"ctrl-l": "terminal::Clear"
+		}
+	}
+]

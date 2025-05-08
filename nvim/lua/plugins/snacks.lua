@@ -3,11 +3,69 @@ return {
 	priority = 1000,
 	lazy = false,
 	opts = {
-		bigfile = { enabled = true },
-		input = { enabled = true },
-		picker = { enabled = true },
-		notifier = { enabled = true },
-		quickfile = { enabled = true },
+		bigfile = {},
+		input = {},
+		notifier = {},
+		picker = {},
+		quickfile = {},
+		dashboard = {
+			preset = {
+				keys = {
+					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+					{
+						icon = " ",
+						key = "f",
+						desc = "Find File",
+						action = "<cmd>lua Snacks.dashboard.pick('files')<cr>",
+					},
+					{
+						icon = " ",
+						key = "g",
+						desc = "Find Text",
+						action = "<cmd>lua Snacks.dashboard.pick('live_grep')<cr>",
+					},
+					{
+						icon = " ",
+						key = "r",
+						desc = "Recent Files",
+						action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>",
+					},
+					{
+						icon = " ",
+						key = "d",
+						desc = "Dotfiles",
+						action = "<cmd>lua Snacks.dashboard.pick('files', {cwd = '~/Projects/dotfiles'})<cr>",
+					},
+					{
+						icon = "󰒲 ",
+						key = "l",
+						desc = "Lazy",
+						action = "<cmd>Lazy<cr>",
+						enabled = package.loaded.lazy ~= nil,
+					},
+					{
+						icon = "󱌣 ",
+						key = "m",
+						desc = "Mason",
+						action = "<cmd>Mason<cr>",
+					},
+					{ icon = " ", key = "q", desc = "Quit", action = "<cmd>qa<cr>" },
+				},
+			},
+			sections = {
+				{ section = "header" },
+				{ section = "keys", padding = 2 },
+				{
+					icon = " ",
+					title = "Recent Files",
+					section = "recent_files",
+					indent = 2,
+					padding = 2,
+				},
+				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
+				{ section = "startup" },
+			},
+		},
 	},
 	keys = {
 		{
@@ -15,7 +73,7 @@ return {
 			function()
 				Snacks.picker.smart()
 			end,
-			desc = "Smart Find Files",
+			desc = "Smart Files",
 		},
 		{
 			"<leader>/",
@@ -43,7 +101,7 @@ return {
 			function()
 				Snacks.picker.git_files()
 			end,
-			desc = "Find Git Files",
+			desc = "Git Files",
 		},
 		{
 			"<leader>fp",

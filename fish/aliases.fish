@@ -44,6 +44,11 @@ abbr dcup  'docker compose up'
 # Git
 abbr g "git"
 
+# JJ
+abbr jl "jj log"
+abbr jc "jj commit"
+abbr jci "jj commit -i"
+
 # Kubernetes
 abbr k 'kubectl'
 abbr kctx 'kubectx'

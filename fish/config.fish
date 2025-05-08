@@ -21,10 +21,12 @@ function nvim --wraps nvim
 	command nvim $argv
 end
 
-if status --is-interactive
+if status is-interactive
 	#direnv hook fish | source
 	atuin init fish | source
 	#carapace _carapace | source
-	zoxide init fish | source
+	zoxide init fish --cmd cd | source
 	starship init fish | source
+	COMPLETE=fish jj | source
+	fnm env --use-on-cd --shell fish | source
 end
