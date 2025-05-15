@@ -1,0 +1,19 @@
+[user]
+name = "Samuel Sarle"
+email = "samuel@sarle.com"
+
+[ui]
+default-command = "log"
+
+[revsets]
+log = 'ancestors(@, 5) | ancestors(present(trunk()), 3) | ancestors(latest((immutable_heads()|visible_heads())~trunk(), 5), 3)'
+
+[revset-aliases]
+'open()' = '(mine() ~ ::trunk()) ~ heads(empty()) ~ immutable()'
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+open = ["log", "-r", "open()"]
+
+[git]
+colocate = true

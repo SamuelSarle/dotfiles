@@ -786,11 +786,6 @@ $env.config = {
     ]
 }
 
-def --wrapped nvim [...rest] {
-	$env.ANTHROPIC_API_KEY = (cat ~/.config/anthropic/.api_key);
-	^nvim ...$rest
-}
-
 alias l = ls -l
 
 $env.HOMEBREW_UPGRADE_GREEDY = "true"

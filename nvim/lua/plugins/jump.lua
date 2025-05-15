@@ -53,13 +53,14 @@ return {
 		"otavioschwanck/arrow.nvim",
 		keys = { ";", "m" },
 		opts = {
-			show_icons = true,
-			leader_key = ";",
-			buffer_leader_key = "m",
+			-- show_icons = true,
+			-- leader_key = ";",
+			-- buffer_leader_key = "m",
 			global_bookmarks = true,
-			save_path = function()
-				return vim.fn.stdpath("cache") .. "/arrow"
-			end,
+			separate_save_and_remove = true,
+			-- save_path = function()
+			-- 	return vim.fn.stdpath("cache") .. "/arrow"
+			-- end,
 		},
 	},
 }

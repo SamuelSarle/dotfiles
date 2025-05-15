@@ -20,12 +20,14 @@ alias cp 'cp -v'
 alias mv 'mv -v'
 alias rm 'rm -v'
 
+alias tailscale "/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
 abbr v 'nvim'
 
 #python
-abbr  py   'python3 -q'
-abbr  ppi  'python3 -m pip install --user'
-alias senv 'source bin/activate.fish'
+abbr py   'python3 -q'
+abbr ppi  'python3 -m pip install --user'
+abbr senv 'source bin/activate.fish'
 
 #docker-compose
 abbr dco   'docker compose'
@@ -45,15 +47,26 @@ abbr dcup  'docker compose up'
 abbr g "git"
 
 # JJ
-abbr jl "jj log"
+abbr jbc "jj bookmark create -r"
+abbr jbm "jj bookmark move -t"
 abbr jc "jj commit"
 abbr jci "jj commit -i"
+abbr jd "jj diff"
+abbr jgc "jj git clone"
+abbr jgf "jj git fetch"
+abbr jgi "jj git init"
+abbr jgp "jj git push"
+abbr jgpn "jj git push --allow-new"
+abbr jl "jj log"
+abbr jr "jj rebase"
+abbr jrt "jj rebase -d 'trunk()'"
+abbr js "jj status"
 
 # Kubernetes
-abbr k 'kubectl'
-abbr kctx 'kubectx'
-abbr kctxr 'kubectx -u'
-abbr kns 'kubens'
+abbr ku 'kubectl'
+abbr kuctx 'kubectx'
+abbr kuctxr 'kubectx -u'
+abbr kuns 'kubens'
 
 #abbreviations for spelling errors
 abbr hotp 'htop'

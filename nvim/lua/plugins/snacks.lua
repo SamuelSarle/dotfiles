@@ -54,7 +54,7 @@ return {
 			},
 			sections = {
 				{ section = "header" },
-				{ section = "keys", padding = 2 },
+				{ section = "keys", gap = 1, padding = 2 },
 				{
 					icon = " ",
 					title = "Recent Files",

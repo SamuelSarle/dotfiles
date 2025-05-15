@@ -1,11 +1,50 @@
 return {
-	"ahmedkhalf/project.nvim",
-	event = "VeryLazy",
-	main = "project_nvim",
-	opts = {
-		detection_methods = { "pattern", "lsp" },
-		patterns = { ".git", "Makefile", "go.mod", "package.json", "Cargo.toml" },
-		exclude_dirs = { "node_modules/*", "~/go/pkg/*", "~/.cargo/*", "~/.rustup/*" },
-		scope_chdir = "win",
-	},
+	-- {
+	-- 	"ahmedkhalf/project.nvim",
+	-- 	event = "VeryLazy",
+	-- 	main = "project_nvim",
+	-- 	opts = {
+	-- 		detection_methods = { "pattern", "lsp" },
+	-- 		patterns = { ".git", "Makefile", "go.mod", "package.json", "Cargo.toml" },
+	-- 		exclude_dirs = { "node_modules/*", "~/go/pkg/*", "~/.cargo/*", "~/.rustup/*" },
+	-- 		scope_chdir = "win",
+	-- 	},
+	-- },
+	-- {
+	-- 	"folke/persistence.nvim",
+	-- 	event = "BufReadPre",
+	-- 	-- lazy = false,
+	-- 	-- priority = 900,
+	-- 	opts = {},
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>qs",
+	-- 			function()
+	-- 				require("persistence").load()
+	-- 			end,
+	-- 			desc = "Load the session for the current directory",
+	-- 		},
+	-- 		{
+	-- 			"<leader>qS",
+	-- 			function()
+	-- 				require("persistence").select()
+	-- 			end,
+	-- 			desc = "Select a session to load",
+	-- 		},
+	-- 		{
+	-- 			"<leader>ql",
+	-- 			function()
+	-- 				require("persistence").load({ last = true })
+	-- 			end,
+	-- 			desc = "Load the last session",
+	-- 		},
+	-- 		{
+	-- 			"<leader>qd",
+	-- 			function()
+	-- 				require("persistence").stop()
+	-- 			end,
+	-- 			desc = "Stop Persistence: session won't be saved on exit",
+	-- 		},
+	-- 	},
+	-- },
 }

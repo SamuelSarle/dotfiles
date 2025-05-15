@@ -1,6 +1,6 @@
 return {
 	"nvim-tree/nvim-tree.lua",
-	tag = "nightly",
+	-- tag = "nightly",
 	opts = {
 		sync_root_with_cwd = true,
 		respect_buf_cwd = true,
@@ -10,7 +10,7 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>t", vim.cmd.NvimTreeToggle, desc = "Toggle NvimTree" },
+		{ "<leader>t", vim.cmd.NvimTreeFocus, desc = "Focus NvimTree" },
 	},
 	dependencies = { { "nvim-tree/nvim-web-devicons", lazy = false } },
 }

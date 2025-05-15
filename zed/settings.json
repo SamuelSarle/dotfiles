@@ -1,31 +1,61 @@
 {
 	"agent": {
-		"version": "2",
+		"profiles": {
+			"ask": {
+				"name": "Ask",
+				"tools": {
+					"contents": true,
+					"diagnostics": true,
+					"fetch": true,
+					"list_directory": true,
+					"project_notifications": false,
+					"now": true,
+					"find_path": true,
+					"read_file": true,
+					"open": true,
+					"grep": true,
+					"thinking": true,
+					"web_search": true,
+					"copy_path": false
+				},
+				"enable_all_context_servers": false,
+				"context_servers": {}
+			}
+		},
+		"default_profile": "write",
+		"always_allow_tool_actions": true,
 		"default_model": {
 			"provider": "anthropic",
-			"model": "claude-3-7-sonnet-latest"
+			"model": "claude-sonnet-4-latest"
 		}
 	},
 
 	"theme": {
 		"mode": "system",
-		"dark": "macOS Classic Dark",
-		"light": "macOS Classic Light"
+		"dark": "Fleet Dark",
+		"light": "Fleet Light"
 	},
-	"buffer_font_size": 13,
-	"ui_font_size": 13,
-	"ui_font_family": "DepartureMono Nerd Font Mono",
-	"buffer_font_family": "DepartureMono Nerd Font Mono",
-	"active_pane_modifiers": {
-		"inactive_opacity": 0.7
+	"buffer_font_size": 15,
+	"ui_font_size": 15,
+	"ui_font_weight": 600,
+	"buffer_font_weight": 600,
+	"ui_font_family": "FiraCode Nerd Font",
+	"buffer_font_family": "FiraCode Nerd Font",
+	"ui_font_features": {
+		"calt": false
 	},
+	"buffer_font_features": {
+		"calt": false
+	},
+	"use_system_window_tabs": true,
 
 	"vim_mode": true,
 	"vim": {
-		"use_multiline_find": true,
 		"use_smartcase_find": true
 	},
 	"use_smartcase_search": true,
+	"pane_split_direction_horizontal": "down",
+	"pane_split_direction_vertical": "right",
 
 	"features": { "edit_prediction_provider": "none" },
 	"hard_tabs": true,
@@ -37,12 +67,17 @@
 		}
 	},
 
+	"languages": {
+		"YAML": {
+			"hard_tabs": false
+		}
+	},
+
 	// disable some defaults
 	"collaboration_panel": { "button": false },
-	"tab_bar": { "show": false },
+	// "tab_bar": { "show": false },
 	// "toolbar": { "quick_actions": true },
 	"telemetry": { "diagnostics": false, "metrics": false },
 	"auto_update": false,
-	"gutter": { "folds": false },
-	"show_user_picture": false
+	"gutter": { "folds": false }
 }

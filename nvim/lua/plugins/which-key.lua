@@ -9,6 +9,7 @@ return {
 		expand = 2,
 		spec = {
 			{ "<leader>f", group = "Find" },
+			{ "<leader>h", group = "Git" },
 			{ "<leader>o", group = "Overseer" },
 		},
 	},

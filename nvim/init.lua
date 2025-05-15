@@ -52,7 +52,6 @@ vim.opt.guicursor = "n-v-c-sm-t:block-blinkon500-blinkoff500-Cursor/lCursor,i-ci
 vim.opt.laststatus = 3
 vim.opt.lazyredraw = true
 vim.opt.winborder = "single"
-vim.opt.conceallevel = 2
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufWritePre", {
@@ -74,6 +73,11 @@ vim.keymap.set("n", "q:", ":q")
 
 vim.keymap.set("n", "gh", "<cmd>diffget //2<CR>")
 vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>")
+
+vim.keymap.set("n", "<C-h>", "<C-W>h")
+vim.keymap.set("n", "<C-j>", "<C-W>j")
+vim.keymap.set("n", "<C-k>", "<C-W>k")
+vim.keymap.set("n", "<C-l>", "<C-W>l")
 
 require("lazy").setup({
 	defaults = { lazy = true },

@@ -11,3 +11,5 @@ fish/fish.tmp.*
 zed/*
 !zed/settings.json
 !zed/keymap.json
+
+.DS_Store
