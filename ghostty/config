@@ -9,9 +9,9 @@ font-thicken-strength = 255
 
 window-save-state = always
 minimum-contrast = 1.1
-theme = dark:Zenbones Dark, light:ZenBones Light
-background-blur-radius = 30
-background-opacity = 0.75
+theme = dark:Zenwritten Dark, light:Zenwritten Light
+background-blur-radius = 50
+background-opacity = 0.9
 window-padding-x = 5
 window-padding-y = 5
 
@@ -21,6 +21,7 @@ keybind = shift+escape=toggle_split_zoom
 command = /opt/homebrew/bin/fish -l
 
 # TODO: ideally new windows would be home dir while new tabs would inherit wdir
+# https://github.com/ghostty-org/ghostty/issues/1392
 # window-inherit-working-directory = false
 
 auto-update = off

@@ -7,7 +7,6 @@ return {
 				return require("dial.map").inc_normal()
 			end,
 			expr = true,
-			noremap = true,
 		},
 		{
 			"<C-x>",
@@ -15,7 +14,6 @@ return {
 				return require("dial.map").dec_normal()
 			end,
 			expr = true,
-			noremap = true,
 		},
 		{
 			"<C-a>",
@@ -23,7 +21,6 @@ return {
 				return require("dial.map").inc_visual()
 			end,
 			expr = true,
-			noremap = true,
 			mode = "v",
 		},
 		{
@@ -32,7 +29,6 @@ return {
 				return require("dial.map").dec_visual()
 			end,
 			expr = true,
-			noremap = true,
 			mode = "v",
 		},
 		{
@@ -41,7 +37,6 @@ return {
 				return require("dial.map").inc_gvisual()
 			end,
 			expr = true,
-			noremap = true,
 			mode = "v",
 		},
 		{
@@ -50,7 +45,6 @@ return {
 				return require("dial.map").dec_gvisual()
 			end,
 			expr = true,
-			noremap = true,
 			mode = "v",
 		},
 	},

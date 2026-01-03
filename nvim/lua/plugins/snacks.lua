@@ -12,49 +12,63 @@ return {
 			preset = {
 				keys = {
 					{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+					{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+					{
+						icon = " ",
+						key = "r",
+						desc = "Recent Files",
+						action = function()
+							Snacks.dashboard.pick("oldfiles")
+						end,
+					},
 					{
 						icon = " ",
 						key = "f",
 						desc = "Find File",
-						action = "<cmd>lua Snacks.dashboard.pick('files')<cr>",
+						action = function()
+							Snacks.dashboard.pick("files")
+						end,
 					},
 					{
 						icon = " ",
 						key = "g",
 						desc = "Find Text",
-						action = "<cmd>lua Snacks.dashboard.pick('live_grep')<cr>",
-					},
-					{
-						icon = " ",
-						key = "r",
-						desc = "Recent Files",
-						action = "<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>",
+						action = function()
+							Snacks.dashboard.pick("live_grep")
+						end,
 					},
 					{
 						icon = " ",
 						key = "d",
 						desc = "Dotfiles",
-						action = "<cmd>lua Snacks.dashboard.pick('files', {cwd = '~/Projects/dotfiles'})<cr>",
+						action = function()
+							vim.fn.chdir("~/Projects/dotfiles")
+							Snacks.picker.smart()
+						end,
 					},
 					{
 						icon = "󰒲 ",
 						key = "l",
 						desc = "Lazy",
-						action = "<cmd>Lazy<cr>",
+						action = function()
+							require("lazy"):show()
+						end,
 						enabled = package.loaded.lazy ~= nil,
 					},
 					{
-						icon = "󱌣 ",
-						key = "m",
-						desc = "Mason",
-						action = "<cmd>Mason<cr>",
+						icon = " ",
+						key = "q",
+						desc = "Quit",
+						action = function()
+							vim.cmd("quitall")
+						end,
 					},
-					{ icon = " ", key = "q", desc = "Quit", action = "<cmd>qa<cr>" },
 				},
 			},
 			sections = {
 				{ section = "header" },
 				{ section = "keys", gap = 1, padding = 2 },
+				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
 				{
 					icon = " ",
 					title = "Recent Files",
@@ -62,7 +76,6 @@ return {
 					indent = 2,
 					padding = 2,
 				},
-				{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
 				{ section = "startup" },
 			},
 		},

@@ -1,0 +1,22 @@
+[user]
+	name = Samuel Sarle
+	email = samuel@sarle.com
+
+[init]
+	defaultBranch = master
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
+[status]
+	submoduleSummary = true
+[rebase]
+	autostash = true
+[push]
+	default = current
+[diff]
+	algorithm = histogram
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate

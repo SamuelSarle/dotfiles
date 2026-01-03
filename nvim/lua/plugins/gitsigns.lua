@@ -1,5 +1,6 @@
 return {
 	"lewis6991/gitsigns.nvim",
+	event = "BufReadPost",
 	opts = {
 		current_line_blame = true,
 		current_line_blame_opts = {
@@ -59,5 +60,4 @@ return {
 			-- map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 		end,
 	},
-	event = "BufReadPost",
 }

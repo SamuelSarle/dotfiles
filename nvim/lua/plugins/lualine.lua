@@ -8,7 +8,5 @@ return {
 			component_separators = "",
 		},
 	},
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-	},
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 }
