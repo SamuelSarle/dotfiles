@@ -1,6 +1,9 @@
 local function set_colorscheme()
 	require("nightfox")
 	vim.cmd.colorscheme(vim.o.background == "light" and "dayfox" or "carbonfox")
+
+	-- require("zenbones")
+	-- vim.cmd.colorscheme("zenbones")
 end
 
 local colorgroup = vim.api.nvim_create_augroup("colorgroup", { clear = true })

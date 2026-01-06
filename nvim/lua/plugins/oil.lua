@@ -11,13 +11,6 @@ return {
 		{
 			"<leader>d",
 			function()
-				require("oil").open_float()
-			end,
-			desc = "Open oil",
-		},
-		{
-			"<leader>D",
-			function()
 				require("oil").open()
 			end,
 			desc = "Open oil",

@@ -7,19 +7,21 @@ return {
 			vim.diagnostic.config({ severity_sort = true, virtual_text = true })
 
 			vim.lsp.enable({
+				"basedpyright",
 				"bqnlsp",
 				"clangd",
-				"elixirls",
+				"expert",
 				"fish_lsp",
 				"gopls",
 				"lua_ls",
-				"pyright",
+				-- "pyright",
 				"ruff",
 				"solargraph",
 				"svelte",
-				"tailwind",
+				"tailwindcss",
 				"taplo",
 				"ts_ls",
+				-- "ty",
 				"zls",
 			})
 		end,

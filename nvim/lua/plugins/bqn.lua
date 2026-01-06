@@ -6,7 +6,7 @@ return {
 	},
 	{
 		name = "bqn",
-		dir = "~/Projects/BQN/editors/vim/",
+		dir = "~/Projects/mlochbaum/BQN/editors/vim/",
 		ft = "bqn",
 	},
 }

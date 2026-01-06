@@ -6,7 +6,7 @@ set -gx MANPAGER less
 set -gx EDITOR nvim
 set -gx SHELL /opt/homebrew/bin/fish
 
-fish_add_path ~/bin ~/.local/bin ~/go/bin ~/.cargo/bin /opt/homebrew/bin /opt/homebrew/sbin /opt/homebrew/opt/ruby/bin /opt/homebrew/opt/curl/bin
+fish_add_path ~/bin ~/.local/bin ~/go/bin ~/.cargo/bin /opt/homebrew/bin /opt/homebrew/sbin /opt/homebrew/opt/curl/bin
 
 set -gx HOMEBREW_UPGRADE_GREEDY true
 set -gx HOMEBREW_NO_INSECURE_REDIRECT 1

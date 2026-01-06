@@ -42,7 +42,7 @@ return {
 						key = "d",
 						desc = "Dotfiles",
 						action = function()
-							vim.fn.chdir("~/Projects/dotfiles")
+							vim.fn.chdir("~/Projects/SamuelSarle/dotfiles")
 							Snacks.picker.smart()
 						end,
 					},

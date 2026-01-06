@@ -2,9 +2,7 @@
 
 add_newline = false
 scan_timeout = 30
-format = """$directory$git_status$character"""
-# right_format = """$all"""
-right_format = """$status$cmd_duration$battery"""
+format = """$directory$git_status$status$cmd_duration$character"""
 
 [character]
 success_symbol = "[𝛌](bold green)"

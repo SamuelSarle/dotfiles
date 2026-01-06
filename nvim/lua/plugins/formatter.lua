@@ -17,6 +17,7 @@ return {
 				python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 				rust = { "rustfmt", lsp_format = "fallback" },
 				svelte = { "prettierd", "prettier", stop_after_first = true },
+				-- sql = { "sqruff", "sqlfluff", stop_after_first = true },
 				tex = { "tex-fmt" },
 				toml = { "taplo" },
 				typescript = { "prettierd", "prettier", stop_after_first = true },

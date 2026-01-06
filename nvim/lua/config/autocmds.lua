@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 	end,
 })
 
--- Clean old undo files (older than 60 days) with delayed startup
+-- Clean old undo files (older than 120 days) with delayed startup
 vim.api.nvim_create_autocmd("VimEnter", {
 	group = vim.api.nvim_create_augroup("undo_cleanup", { clear = true }),
 	desc = "Clean old undo files after delay",
@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 				return
 			end
 
-			local max_age_days = 60
+			local max_age_days = 120
 			local max_age_seconds = max_age_days * 24 * 60 * 60
 			local now = os.time()
 			local total_deleted = 0
@@ -136,26 +136,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set(mode, l, r, opts)
 		end
 
-		map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-		map("n", "gD", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+		-- map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+		-- map("n", "gD", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 		map("n", "gk", vim.diagnostic.open_float, { desc = "Open diagnostic" })
 
-		vim.api.nvim_create_autocmd("CursorHold", {
-			group = lspattach_group,
-			buffer = event.buf,
-			callback = function()
-				vim.diagnostic.config({ virtual_lines = { current_line = true } })
-			end,
-			desc = "Enable virtual_lines with current_line",
-		})
-
-		vim.api.nvim_create_autocmd("CursorMoved", {
-			group = lspattach_group,
-			buffer = event.buf,
-			callback = function()
-				vim.diagnostic.config({ virtual_lines = false })
-			end,
-			desc = "Disable virtual_lines",
-		})
+		-- vim.api.nvim_create_autocmd("CursorHold", {
+		-- 	group = lspattach_group,
+		-- 	buffer = event.buf,
+		-- 	callback = function()
+		-- 		vim.diagnostic.config({ virtual_lines = { current_line = true } })
+		-- 	end,
+		-- 	desc = "Enable virtual_lines with current_line",
+		-- })
+		--
+		-- vim.api.nvim_create_autocmd("CursorMoved", {
+		-- 	group = lspattach_group,
+		-- 	buffer = event.buf,
+		-- 	callback = function()
+		-- 		vim.diagnostic.config({ virtual_lines = false })
+		-- 	end,
+		-- 	desc = "Disable virtual_lines",
+		-- })
 	end,
 })

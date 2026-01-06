@@ -19,6 +19,7 @@ require("lazy").setup({
 	defaults = { lazy = true },
 	spec = { { import = "plugins" } },
 	ui = { border = "single" },
+	install = { colorscheme = { "zenwritten", "quiet" } },
 	change_detection = { notify = false },
 	-- profiling = { loader = true, require = true },
 })

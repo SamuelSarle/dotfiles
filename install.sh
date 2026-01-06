@@ -3,6 +3,7 @@
 ln -s "$(pwd)"/atuin ~/.config/atuin
 ln -s "$(pwd)"/fish ~/.config/fish
 ln -s "$(pwd)"/ghostty ~/.config/ghostty
+ln -s "$(pwd)"/nushell ~/Library/Application\ Support/nushell
 ln -s "$(pwd)"/git ~/.config/git
 ln -s "$(pwd)"/jj ~/.config/jj
 ln -s "$(pwd)"/mise ~/.config/mise
