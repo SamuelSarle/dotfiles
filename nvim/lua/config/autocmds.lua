@@ -113,14 +113,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("LspProgress", {
 	group = vim.api.nvim_create_augroup("lspprogress_spinner", { clear = true }),
 	callback = function(ev)
-		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-		vim.notify(vim.lsp.status(), "info", {
-			id = "lsp_progress",
-			title = "LSP Progress",
-			opts = function(notif)
-				notif.icon = ev.data.params.value.kind == "end" and " "
-					or spinner[math.floor((vim.uv or vim.loop).hrtime() / (1e6 * 80)) % #spinner + 1]
-			end,
+		local value = ev.data.params.value
+		vim.api.nvim_echo({ { value.message or "done" } }, false, {
+			id = "lsp." .. ev.data.client_id,
+			kind = "progress",
+			source = "vim.lsp",
+			title = value.title,
+			status = value.kind ~= "end" and "running" or "success",
+			percent = value.percentage,
 		})
 	end,
 })
