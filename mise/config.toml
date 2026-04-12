@@ -1,3 +1,4 @@
 [settings]
 paranoid = true
 idiomatic_version_file_enable_tools = []
+activate_aggressive = true

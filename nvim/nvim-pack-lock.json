@@ -15,11 +15,11 @@
       "version": "1.0.0 - 2.0.0"
     },
     "conform.nvim": {
-      "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
+      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "copilot.lua": {
-      "rev": "07aa57148ac28986bab9f55e87ee3d929e2726b1",
+      "rev": "18a58c62b20b7c724da808ef6d8fb002673b903f",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dial.nvim": {
@@ -27,7 +27,7 @@
       "src": "https://github.com/monaqa/dial.nvim"
     },
     "dropbar.nvim": {
-      "rev": "ce202248134e3949aac375fd66c28e5207785b10",
+      "rev": "f0a42bd92aa647e44221397723453403f5e20f16",
       "src": "https://github.com/Bekaboo/dropbar.nvim"
     },
     "flash.nvim": {
@@ -35,7 +35,7 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "flutter-tools.nvim": {
-      "rev": "677cc07c16e8b89999108d2ebeefcfc5f539b73c",
+      "rev": "7d1acfd139215e02d2784733af69a61aaebe06e8",
       "src": "https://github.com/nvim-flutter/flutter-tools.nvim"
     },
     "git-conflict.nvim": {
@@ -44,19 +44,19 @@
       "version": ">=0.0.0"
     },
     "gitsigns.nvim": {
-      "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
+      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lualine.nvim": {
-      "rev": "8811f3f3f4dc09d740c67e9ce399e7a541e2e5b2",
+      "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "nightfox.nvim": {
-      "rev": "ba47d4b4c5ec308718641ba7402c143836f35aa9",
+      "rev": "26b61b1f856ec37cae3cb64f5690adb955f246a1",
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-autopairs": {
-      "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
+      "rev": "7b9923abad60b903ece7c52940e1321d39eccc79",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-bqf": {
@@ -72,7 +72,7 @@
       "src": "https://github.com/chrisgrieser/nvim-lsp-endhints"
     },
     "nvim-lspconfig": {
-      "rev": "bedca8b426b2fee0ccac596d167d71bbe971253f",
+      "rev": "451d4ef9abd4f0f08e379ef0d55d1c391b6125a7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-parinfer": {
@@ -89,7 +89,7 @@
       "version": "'main'"
     },
     "nvim-web-devicons": {
-      "rev": "95b7a002d5dba1a42eb58f5fac5c565a485eefd0",
+      "rev": "2795c26c916bb3c57dde308b82be51971fa92747",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
@@ -101,15 +101,15 @@
       "src": "https://github.com/stevearc/overseer.nvim"
     },
     "persisted.nvim": {
-      "rev": "14cc1db0052ea26f2d2d2f1b861845dae58b7ead",
+      "rev": "1a8e9dcf277d61105619498b2002c287c50424b8",
       "src": "https://github.com/olimorris/persisted.nvim"
     },
     "plenary.nvim": {
-      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rustaceanvim": {
-      "rev": "7b8dd7abb9a7f442b356aa03714aefce09610339",
+      "rev": "bc391bbb8db0dbf3e3e9fe8f9f03112ecbab7463",
       "src": "https://github.com/mrcjkb/rustaceanvim",
       "version": "9.0.0 - 10.0.0"
     },

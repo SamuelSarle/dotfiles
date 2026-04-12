@@ -46,3 +46,5 @@ vim.opt.shiftround = false
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
+
+require("vim._core.ui2").enable()

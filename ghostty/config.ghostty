@@ -1,11 +1,11 @@
-font-family = FiraCode Nerd Font Mono
+font-family = CozetteVector
+# font-family = FiraCode Nerd Font Mono
 # font-family = DepartureMono Nerd Font
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
-font-size = 15
-font-thicken = true
-font-thicken-strength = 255
+font-size = 20
+# font-thicken = true
 
 # theme = dark:Carbonfox, light:Zenwritten Light
 theme = dark:Carbonfox, light:Dayfox

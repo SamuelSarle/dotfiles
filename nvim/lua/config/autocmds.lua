@@ -110,20 +110,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("LspProgress", {
-	group = vim.api.nvim_create_augroup("lspprogress_spinner", { clear = true }),
-	callback = function(ev)
-		local value = ev.data.params.value
-		vim.api.nvim_echo({ { value.message or "done" } }, false, {
-			id = "lsp." .. ev.data.client_id,
-			kind = "progress",
-			source = "vim.lsp",
-			title = value.title,
-			status = value.kind ~= "end" and "running" or "success",
-			percent = value.percentage,
-		})
-	end,
-})
+-- vim.api.nvim_create_autocmd("LspProgress", {
+-- 	group = vim.api.nvim_create_augroup("lspprogress_spinner", { clear = true }),
+-- 	callback = function(ev)
+-- 		local value = ev.data.params.value
+-- 		vim.api.nvim_echo({ { value.message or "done" } }, false, {
+-- 			id = "lsp." .. ev.data.client_id,
+-- 			kind = "progress",
+-- 			source = "vim.lsp",
+-- 			title = value.title,
+-- 			status = value.kind ~= "end" and "running" or "success",
+-- 			percent = value.percentage,
+-- 		})
+-- 	end,
+-- })
 
 local lspattach_group = vim.api.nvim_create_augroup("lspattach_group", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -136,8 +136,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set(mode, l, r, opts)
 		end
 
-		-- map("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-		-- map("n", "gD", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 		map("n", "gk", vim.diagnostic.open_float, { desc = "Open diagnostic" })
 
 		-- vim.api.nvim_create_autocmd("CursorHold", {
