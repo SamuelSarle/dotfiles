@@ -12,3 +12,9 @@ vim.api.nvim_create_autocmd("OptionSet", {
 	group = colorgroup,
 	callback = set_colorscheme,
 })
+
+vim.api.nvim_create_autocmd("UIEnter", {
+	group = colorgroup,
+	callback = set_colorscheme,
+	once = true,
+})

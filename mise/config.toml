@@ -2,3 +2,7 @@
 paranoid = true
 idiomatic_version_file_enable_tools = []
 activate_aggressive = true
+minimum_release_age = "3d"
+
+[tools]
+"github:jnsahaj/lumen" = "latest"

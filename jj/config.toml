@@ -4,6 +4,8 @@ email = "samuel@sarle.com"
 
 [ui]
 default-command = "log"
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
+diff-editor = ":builtin"
 
 [revsets]
 log = 'ancestors(@, 5) | ancestors(present(trunk()), 3) | ancestors(latest((immutable_heads()|visible_heads())~trunk(), 5), 3)'

@@ -2,7 +2,7 @@
 
 add_newline = false
 scan_timeout = 30
-format = """$directory$git_status$status$cmd_duration$character"""
+format = """$hostname$directory$git_status$status$cmd_duration$character"""
 
 [character]
 success_symbol = "[𝛌](bold green)"
@@ -134,6 +134,9 @@ symbol = "hg "
 truncation_symbol = "..."
 
 [hostname]
+ssh_only = false
+style = "cyan"
+format = "[$hostname:]($style)"
 ssh_symbol = "ssh "
 
 [java]

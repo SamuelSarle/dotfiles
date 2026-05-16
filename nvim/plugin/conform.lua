@@ -4,6 +4,7 @@ require("conform").setup({
 	formatters_by_ft = {
 		astro = { "prettierd", "prettier", stop_after_first = true },
 		css = { "prettierd", "prettier", stop_after_first = true },
+		clojure = { "cljfmt" },
 		elixir = { "mix" },
 		go = { "gofumpt", "golines" },
 		html = { "prettierd", "prettier", stop_after_first = true },
@@ -11,6 +12,7 @@ require("conform").setup({
 		json = { "prettierd", "prettier", stop_after_first = true },
 		lua = { "stylua" },
 		markdown = { "prettierd", "prettier", stop_after_first = true },
+		haskell = { "ormolu" },
 		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 		rust = { "rustfmt", lsp_format = "fallback" },
 		svelte = { "prettierd", "prettier", stop_after_first = true },

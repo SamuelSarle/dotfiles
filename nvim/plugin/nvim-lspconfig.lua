@@ -5,12 +5,14 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 	callback = function()
 		vim.diagnostic.config({ severity_sort = true, virtual_text = true })
 		vim.lsp.enable({
-			"basedpyright",
+			-- "basedpyright",
 			"bqnlsp",
 			"clangd",
+			"clojure-lsp",
 			"expert",
 			"fish_lsp",
 			"gopls",
+			"hls",
 			"lua_ls",
 			-- "pyright",
 			"ruff",
@@ -19,7 +21,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 			"tailwindcss",
 			"taplo",
 			"ts_ls",
-			-- "ty",
+			"ty",
 			"zls",
 		})
 	end,

@@ -15,27 +15,23 @@
       "version": "1.0.0 - 2.0.0"
     },
     "conform.nvim": {
-      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"
-    },
-    "copilot.lua": {
-      "rev": "18a58c62b20b7c724da808ef6d8fb002673b903f",
-      "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dial.nvim": {
       "rev": "f2634758455cfa52a8acea6f142dcd6271a1bf57",
       "src": "https://github.com/monaqa/dial.nvim"
     },
     "dropbar.nvim": {
-      "rev": "f0a42bd92aa647e44221397723453403f5e20f16",
+      "rev": "808ba31cde89aec8833e9789f5e04557cd31c9e1",
       "src": "https://github.com/Bekaboo/dropbar.nvim"
     },
     "flash.nvim": {
-      "rev": "fcea7ff883235d9024dc41e638f164a450c14ca2",
+      "rev": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a",
       "src": "https://github.com/folke/flash.nvim"
     },
     "flutter-tools.nvim": {
-      "rev": "7d1acfd139215e02d2784733af69a61aaebe06e8",
+      "rev": "0867b346e9a60753080168188c8f1ee6be40b767",
       "src": "https://github.com/nvim-flutter/flutter-tools.nvim"
     },
     "git-conflict.nvim": {
@@ -44,19 +40,19 @@
       "version": ">=0.0.0"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lualine.nvim": {
-      "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
+      "rev": "221ce6b2d999187044529f49da6554a92f740a96",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "nightfox.nvim": {
-      "rev": "26b61b1f856ec37cae3cb64f5690adb955f246a1",
+      "rev": "4dacd3f0185a2227bdf3b6c0975a8f0bf87cac9a",
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-autopairs": {
-      "rev": "7b9923abad60b903ece7c52940e1321d39eccc79",
+      "rev": "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-bqf": {
@@ -68,11 +64,11 @@
       "src": "https://git.sr.ht/~detegr/nvim-bqn"
     },
     "nvim-lsp-endhints": {
-      "rev": "a86e7ca7a92ef003008d7eb5d153c63bcc89f79c",
+      "rev": "3224a1c1b2fe1b067049764a154d4d727425fa6d",
       "src": "https://github.com/chrisgrieser/nvim-lsp-endhints"
     },
     "nvim-lspconfig": {
-      "rev": "451d4ef9abd4f0f08e379ef0d55d1c391b6125a7",
+      "rev": "221c43884319e791519f0d6c94a7f2fbcd653278",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-parinfer": {
@@ -80,24 +76,24 @@
       "src": "https://github.com/gpanders/nvim-parinfer"
     },
     "nvim-treesitter": {
-      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "rev": "e82ef6ae2c3eeb96c6916b29917f96bf630b2cdb",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
+      "rev": "898ee307df58f854d11cd7edd06472574d48014e",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
     "nvim-web-devicons": {
-      "rev": "2795c26c916bb3c57dde308b82be51971fa92747",
+      "rev": "2ae6958df7ced50baac5035cec0c15799eedfbf7",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
+      "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "overseer.nvim": {
-      "rev": "f818eefff81f4b12fb7cf236f1b6c16768a2fcbc",
+      "rev": "a93d9f6d6defdac4bcd6d2c8ba988650e42e0a0e",
       "src": "https://github.com/stevearc/overseer.nvim"
     },
     "persisted.nvim": {
@@ -109,12 +105,12 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rustaceanvim": {
-      "rev": "bc391bbb8db0dbf3e3e9fe8f9f03112ecbab7463",
+      "rev": "9cb125de42c0256ed1bc1f9ded8d8f0381317a17",
       "src": "https://github.com/mrcjkb/rustaceanvim",
       "version": "9.0.0 - 10.0.0"
     },
     "snacks.nvim": {
-      "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
+      "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "uv.nvim": {
@@ -126,7 +122,7 @@
       "src": "https://github.com/towolf/vim-helm"
     },
     "vim-illuminate": {
-      "rev": "0d1e93684da00ab7c057410fecfc24f434698898",
+      "rev": "91313e598ca62e110bc71535c49069b66b9883c9",
       "src": "https://github.com/RRethy/vim-illuminate"
     },
     "vim-surround": {

@@ -9,3 +9,9 @@ mise.local.toml
 
 **/.venv/
 **/__pycache__/
+
+.claude/
+CLAUDE.md
+claude.md
+
+PAPERCUTS.md

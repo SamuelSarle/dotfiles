@@ -1,0 +1,11 @@
+[dotfiles]
+"~/.config/atuin" = { source = "atuin", mode = "symlink" }
+"~/.config/fish" = { source = "fish", mode = "symlink" }
+"~/.config/ghostty" = { source = "ghostty", mode = "symlink" }
+"~/.config/git" = { source = "git", mode = "symlink" }
+"~/.config/jj" = { source = "jj", mode = "symlink" }
+"~/.config/mise" = { source = "mise", mode = "symlink" }
+"~/.config/nvim" = { source = "nvim", mode = "symlink" }
+"~/.config/starship.toml" = { source = "starship.toml", mode = "symlink" }
+"~/.config/zed" = { source = "zed", mode = "symlink" }
+"~/Library/Application Support/nushell" = { source = "nushell", mode = "symlink" }

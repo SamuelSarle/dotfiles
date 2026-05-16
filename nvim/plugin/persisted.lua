@@ -1,6 +1,7 @@
 vim.pack.add({ "https://github.com/olimorris/persisted.nvim" })
 
 vim.api.nvim_create_autocmd("BufReadPre", {
+	once = true,
 	callback = function()
 		require("persisted").setup()
 	end,
